@@ -16,6 +16,7 @@ const GameOnDevicePage: React.FC = () => {
     const [username, setUsername] = useState<string | null>(null);
     const [rating, setRating] = useState<number | null>(null);
     const token = Cookies.get('accessToken');
+    const [myUserId, setMyUserId] = useState<number>();
     const onDevice = Cookies.get('OnOneDevice');
 
     const [ratingClass, setRatingClass] = useState<string>('');
@@ -93,7 +94,8 @@ const GameOnDevicePage: React.FC = () => {
         try {
           if (onDevice){
             Cookies.remove('OnOneDevice');
-            const {user, totalGamesPlayed, wins, losses, draws, rating} = await getInfo(token);
+            const {id, user, totalGamesPlayed, wins, losses, draws, rating} = await getInfo(token);
+            setMyUserId(id);
             setUsername(user.username);
             setRating(rating);
             updateRating(rating);
@@ -131,7 +133,7 @@ const GameOnDevicePage: React.FC = () => {
                   </svg>
               </Link>
           </div>
-          <Link to="/angryChess/statistics"><div className="header__item item_1">Statistics</div></Link>
+          <Link to={"/angryChess/statistics/" + myUserId}><div className="header__item item_1">Statistics</div></Link>
           <Link to="/angryChess/friends"><div className="header__item item_2">Friends</div></Link>
           <Link to="/angryChess/inventory"><div className="header__item item_3">Inventory</div></Link>
           <Link to="/angryChess/help"><div className="header__item item_4">Help</div></Link>

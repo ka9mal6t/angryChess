@@ -4,6 +4,7 @@ import { AuthProvider } from './context/AuthContext';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import HomePage from './pages/HomePage';
+import StatsPage from './pages/StatsPage';
 import ForgotPage from './pages/ForgotPage';
 import ChangePassPage from './pages/ChangePassPage';
 import ProtectedRoute from './components/ProtectedRoute';
@@ -20,6 +21,7 @@ const App: React.FC = () => {
           <Route path="/angryChess" element={<ProtectedRoute component={HomePage} />} />
           <Route path="/angryChess/login" element={<LoginPage />} />
           <Route path="/angryChess/register" element={<RegisterPage />} />
+          <Route path="/angryChess/statistics/:user_id" element={<ProtectedRoute component={StatsPage} />} />
           <Route path='/angryChess/forgotPassword/changePassword/:token' element={<ChangePassPage />}/>
           <Route path="/angryChess/forgotPassword" element={<ForgotPage />} />
           <Route path="/angryChess/playOnOneDevice" element={<ProtectedRoute component={GameOnDevicePage} />} />

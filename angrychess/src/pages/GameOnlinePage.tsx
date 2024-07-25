@@ -13,6 +13,7 @@ import Cookies from 'js-cookie';
 
 const GameOnlinePage: React.FC = () => {
   const token = Cookies.get('accessToken');
+
   const { messages, sendMessage } = useWebSocket('' + token);
   const navigate = useNavigate();
 
@@ -248,7 +249,7 @@ const GameOnlinePage: React.FC = () => {
                   </svg>
               </Link>
           </div>
-          <Link to="/angryChess/statistics"><div className="header__item item_1">Statistics</div></Link>
+          <Link to={"/angryChess/statistics/" + playerId}><div className="header__item item_1">Statistics</div></Link>
           <Link to="/angryChess/friends"><div className="header__item item_2">Friends</div></Link>
           <Link to="/angryChess/inventory"><div className="header__item item_3">Inventory</div></Link>
           <Link to="/angryChess/help"><div className="header__item item_4">Help</div></Link>

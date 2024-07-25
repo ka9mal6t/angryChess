@@ -47,6 +47,16 @@ interface StatisticResponces{
   rating: number;
 }
 
+interface StatisticUserResponces{
+  id: number;
+  username: string;
+  totalGamesPlayed: number;
+  wins: number;
+  losses: number;
+  draws: number;
+  rating: number;
+}
+
 interface InfoUserResponses {
   id: number;
   email: string;
@@ -62,7 +72,16 @@ export const register = async (credentials: RegisterCredentials): Promise<Regist
 };
 
 export const getInfo = async (token: string): Promise<StatisticResponces> => {
-  const response = await axios.get<StatisticResponces>(`${API_URL}/user/showMyStatistic`, {
+  const response = await axios.get<StatisticResponces>(`${API_URL}/stats/showMyStatistic`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return response.data;
+};
+
+export const getInfoAboutUser = async (token: string, id: number): Promise<StatisticUserResponces> => {
+  const response = await axios.get<StatisticUserResponces>(`${API_URL}/stats/info/${id}`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -153,3 +172,22 @@ export const gameOnlineDetails = async (token: string, matchId: number): Promise
   return response.data;
 };
 
+
+interface InfoMatchReponse{
+  id: number;
+  winner_id: number;
+  end: boolean;
+  white_id: number;
+  black_id: number;
+  time_start: Date;
+  time_end: Date;
+}
+
+export const getMatchesUser = async (token: string, id: number): Promise<InfoMatchReponse[]> => {
+  const response = await axios.get(`${API_URL}/stats/matches/${id}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return response.data;
+};

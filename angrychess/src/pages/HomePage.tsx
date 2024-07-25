@@ -17,6 +17,7 @@ const HomePage: React.FC = () => {
   const [draws, setDraws] = useState<number | null>(null);
   const [losses, setLosses] = useState<number | null>(null);
   const token = Cookies.get('accessToken');
+  const [myUserId, setMyUserId] = useState<number>();
 
   const [inMatch, setInMatch] = useState<boolean>(false);
 
@@ -163,7 +164,8 @@ const HomePage: React.FC = () => {
       if (token) {
         try {
           Cookies.remove('OnOneDevice');
-          const {user, totalGamesPlayed, wins, losses, draws, rating} = await getInfo(token);
+          const {id, user, totalGamesPlayed, wins, losses, draws, rating} = await getInfo(token);
+          setMyUserId(id);
           setUsername(user.username);
           setRating(rating);
           setMatches(totalGamesPlayed);
@@ -210,7 +212,7 @@ const HomePage: React.FC = () => {
                   </svg>
               </Link>
           </div>
-          <Link to="/angryChess/statistics"><div className="header__item item_1">Statistics</div></Link>
+          <Link to={"/angryChess/statistics/" + myUserId}><div className="header__item item_1">Statistics</div></Link>
           <Link to="/angryChess/friends"><div className="header__item item_2">Friends</div></Link>
           <Link to="/angryChess/inventory"><div className="header__item item_3">Inventory</div></Link>
           <Link to="/angryChess/help"><div className="header__item item_4">Help</div></Link>
@@ -261,11 +263,10 @@ const HomePage: React.FC = () => {
                   </thead>
                   <tbody>
                       <tr>
-                        
-                          <Link style={{textDecoration: 'none', color: 'inherit'}} to="/angryChess/statistics"><td>{matches}</td></Link>
-                          <td className="win"><Link style={{textDecoration: 'none', color: 'inherit'}} to="/angryChess/statistics">{wins}</Link></td>
-                          <td className="draw"><Link style={{textDecoration: 'none', color: 'inherit'}} to="/angryChess/statistics">{draws}</Link></td>
-                          <td className="loss"><Link style={{textDecoration: 'none', color: 'inherit'}} to="/angryChess/statistics">{losses}</Link></td>
+                          <td><Link style={{textDecoration: 'none', color: 'inherit'}} to={"/angryChess/statistics/" + myUserId}>{matches}</Link></td>
+                          <td className="win"><Link style={{textDecoration: 'none', color: 'inherit'}} to={"/angryChess/statistics/" + myUserId}>{wins}</Link></td>
+                          <td className="draw"><Link style={{textDecoration: 'none', color: 'inherit'}} to={"/angryChess/statistics/" + myUserId}>{draws}</Link></td>
+                          <td className="loss"><Link style={{textDecoration: 'none', color: 'inherit'}} to={"/angryChess/statistics/" + myUserId}>{losses}</Link></td>
                       </tr>
                     
                   </tbody>
