@@ -1,0 +1,103 @@
+body {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    background-color: #ffffff;
+    color: #26242e;
+    font: 1em sans-serif;
+    transition: 0.4s;
+  }
+  body ::-moz-selection {
+    background-color: #10a37d;
+    color: #ffffff;
+  }
+  body ::selection {
+    background-color: #10a37d;
+    color: #ffffff;
+  }
+  body.dark-theme {
+    background-color: #26242e;
+    transition: 0.4s;
+    color: #ffffff;
+    font: 1em sans-serif;
+  }
+  body.dark-theme ::-moz-selection {
+    background-color: #4f98d3;
+    color: #ffffff;
+  }
+  body.dark-theme ::selection {
+    background-color: #4f98d3;
+    color: #ffffff;
+  }
+  
+  .dark-theme .error__img-light {
+    display: none;
+    position: absolute;
+    top: calc(50% - 50px);
+    left: calc(50% - 50px);
+    width: 100px;
+    height: 100px;
+    transition: 0.4s;
+  }
+  .dark-theme .error__img-dark {
+    display: block;
+    position: absolute;
+    left: calc(50% - 50px);
+    top: calc(50% - 50px);
+    width: 100px;
+    height: 100px;
+    transition: 0.4s;
+  }
+  .dark-theme .error #eyes {
+    display: block;
+    position: absolute;
+    pointer-events: none;
+    left: calc(50% - 50px);
+    top: calc(50% - 50px);
+  }
+  
+  .error {
+    position: relative;
+    padding: 0;
+    margin: 0;
+    height: 100vh;
+  }
+  .error__p {
+    font-size: 70px;
+    position: absolute;
+  }
+  .error__p:first-child {
+    top: calc(50% - 100px);
+    left: calc(50% - 100px);
+  }
+  .error__p:last-child {
+    top: calc(50% - 100px);
+    left: calc(50% + 50px);
+  }
+  .error__img-light {
+    display: block;
+    position: absolute;
+    top: calc(50% - 50px);
+    left: calc(50% - 50px);
+    width: 100px;
+    height: 100px;
+    transition: 0.4s;
+  }
+  .error__img-dark {
+    display: none;
+    position: absolute;
+    top: calc(50% - 50px);
+    left: calc(50% - 50px);
+    width: 100px;
+    height: 100px;
+    transition: 0.4s;
+  }
+  .error #eyes {
+    display: none;
+    position: absolute;
+    pointer-events: none;
+    top: 0;
+    transition: 0.4s;
+    width: 100px;
+    height: 100px;
+  }/*# sourceMappingURL=error.css.map */
