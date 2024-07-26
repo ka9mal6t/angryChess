@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Navigate, useLocation, useNavigate, Link, useParams} from 'react-router-dom';
-import useWebSocket from '../hooks/useWebSocket';
+import useSpectatorWebSocket from '../hooks/useSpectatorWebSocket';
 import BoardOnlineComponent from "../components/BoardOnlineComponent";
 import { Board } from "../models/Board";
 import { Player } from "../models/Player";
@@ -18,7 +18,7 @@ const GameWatchOnlinePage: React.FC = () => {
   const { match_id } = useParams<{ match_id: string }>();
   const matchIdNumber = match_id ? Number(match_id) : 0;
 
-  const { messages, sendMessage } = useWebSocket('' + token);
+  const {messages}  = useSpectatorWebSocket('' + token, '' + match_id);
   const navigate = useNavigate();
 
   const [board, setBoard] = useState<Board>(new Board());
@@ -109,9 +109,10 @@ const GameWatchOnlinePage: React.FC = () => {
           const newBoard = new Board();
           newBoard.setBoardFromState(boardState);
           setBoard(newBoard);
-          const myPlayer = playerColor === Colors.WHITE ? whitePlayer : blackPlayer;
-          const enemyPlayer = playerColor === Colors.WHITE ? blackPlayer : whitePlayer;
-          setCurrentPlayer(enemyPlayer);
+          swapPlayer();
+          // const myPlayer = playerColor === Colors.WHITE ? whitePlayer : blackPlayer;
+          // const enemyPlayer = playerColor === Colors.WHITE ? blackPlayer : whitePlayer;
+          // setCurrentPlayer(enemyPlayer);
 
         }
        

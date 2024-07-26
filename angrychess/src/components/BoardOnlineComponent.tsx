@@ -43,6 +43,20 @@ const BoardOnlineComponent: FC<BoardProps> = ({matchId, swapSides, spectator, bo
         if (lastCell) {
             lastCell.pawnUp(lastCell, figureName);
             setShowChooseModal(false);
+            
+            onMove(board);
+            const enemyColor: Colors = swapPlayer();
+            
+
+            if (board.staleMate(enemyColor)) {
+                sendDraw();
+            }
+         
+            if (board.checkMate(enemyColor)) {
+                sendWin();
+                setWin(true);
+            }
+            setSelectedCell(null);
         }
     };
 
@@ -70,20 +84,22 @@ const BoardOnlineComponent: FC<BoardProps> = ({matchId, swapSides, spectator, bo
             if (fromCell.checkPawnUp(toCell)) {
                 setShowChooseModal(true);
             }
-
-            onMove(board);
-            const enemyColor: Colors = swapPlayer();
+            else{
+                onMove(board);
+                const enemyColor: Colors = swapPlayer();
+                
+    
+                if (board.staleMate(enemyColor)) {
+                    sendDraw();
+                }
+             
+                if (board.checkMate(enemyColor)) {
+                    sendWin();
+                    setWin(true);
+                }
+                setSelectedCell(null);
+            }
             
-
-            if (board.staleMate(enemyColor)) {
-                sendDraw();
-            }
-         
-            if (board.checkMate(enemyColor)) {
-                sendWin();
-                setWin(true);
-            }
-            setSelectedCell(null);
         }
         else if(currentPlayer?.color === playerColor ){
             highlightCells();

@@ -5,12 +5,12 @@ interface Message {
   id?: number
 }
 
-const useWebSocket = (token: string) => {
+const useSpectatorWebSocket = (token: string, matchId: string) => {
   const [messages, setMessages] = useState<Message[]>([]);
   const websocket: MutableRefObject<WebSocket | null> = useRef(null);
 
   useEffect(() => {
-    websocket.current = new WebSocket(`wss://angrycheess-backend.onrender.com/match/ws/${token}`);
+    websocket.current = new WebSocket(`wss://angrycheess-backend.onrender.com/match/ws/${token}/${matchId}`);
 
     websocket.current.onmessage = (event: MessageEvent) => {
       setMessages((prev) => [...prev, JSON.parse(event.data)]);
@@ -22,16 +22,7 @@ const useWebSocket = (token: string) => {
       }
     };
   }, [token]);
-
-  const sendMessage = (message: Message) => {
-    if (websocket.current && websocket.current.readyState === WebSocket.OPEN) {
-      websocket.current.send(JSON.stringify(message));
-    }
-  };
-
-  return { messages, sendMessage };
+  return { messages };
 };
 
-export default useWebSocket;
-
-
+export default useSpectatorWebSocket;
