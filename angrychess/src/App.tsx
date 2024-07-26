@@ -16,7 +16,7 @@ import GameWatchOnlinePage from './pages/GameWatchOnlinePage'
 
 
 
-onst App: React.FC = () => {
+const App: React.FC = () => {
   return (
     <AuthProvider>
       <Router basename="/angryChess">
