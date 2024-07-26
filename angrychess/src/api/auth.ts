@@ -149,16 +149,15 @@ export const checkStatusGame = async (token: string): Promise<InfoGameResponse> 
   return response.data;
 };
 
-interface Board {
+export interface InfoBoard {
   board: string;
-  id: number;
 }
 
 
-interface InfoMatchResponse {
+export interface  InfoMatchResponse {
   match_id: number;
   move_number: number;
-  board: Board;
+  board: InfoBoard;
 }
 
 
@@ -172,6 +171,23 @@ export const gameOnlineDetails = async (token: string, matchId: number): Promise
   return response.data;
 };
 
+export const gameDetails = async (token: string, matchId: number): Promise<InfoMatchResponse[]> => {
+  const response = await axios.get(`${API_URL}/matchInfo/gameDetails/${matchId}`, { 
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return response.data;
+};
+
+export const gameResult = async (token: string, matchId: number): Promise<InfoMatchReponse> => {
+  const response = await axios.get(`${API_URL}/matchInfo/gameResults/${matchId}`, { 
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return response.data;
+};
 
 interface InfoMatchReponse{
   id: number;

@@ -90,16 +90,15 @@ const StatsPage: React.FC = () => {
   const formatDateTime = (isoString: string) => {
     let dateObj = new Date(isoString);
 
-    let year = dateObj.getFullYear();
-    let month = ('0' + (dateObj.getMonth() + 1)).slice(-2); // месяцы начинаются с 0, поэтому добавляем 1
-    let day = ('0' + dateObj.getDate()).slice(-2);
+    let formattedDate = dateObj.toLocaleString(undefined, {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false
+    });
 
-    let hours = ('0' + dateObj.getHours()).slice(-2);
-    let minutes = ('0' + dateObj.getMinutes()).slice(-2);
-    let seconds = ('0' + dateObj.getSeconds()).slice(-2);
-
-    let formattedDate = `${day}.${month}.${year} ${hours}:${minutes}`;
-    
     return formattedDate;
 }
 
