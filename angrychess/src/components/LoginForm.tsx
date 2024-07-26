@@ -16,7 +16,7 @@ const LoginForm: React.FC = () => {
     try {
       const { accessToken } = await login({ username, password });
       setAuth(accessToken); 
-      navigate('/angryChess/');
+      navigate('/');
     } catch (error) {
       setError('Login failed')
       console.error('Login failed', error);
@@ -33,7 +33,7 @@ const LoginForm: React.FC = () => {
         </div>
         <div className="login__label">
             <label>Password</label>
-            <Link to="/angryChess/forgotPassword" className="login__link">Forgot password?</Link>
+            <Link to="/forgotPassword" className="login__link">Forgot password?</Link>
         </div>
         <div className="login__field">
             <input type="password" id="password" value={password} className="login__input" onChange={(e) => setPassword(e.target.value)} required/>

@@ -14,7 +14,7 @@ const RegisterForm: React.FC = () => {
     try {
       if (password === cnfrm_password){
         await register({ username,email, password });
-        navigate('/angryChess/login');
+        navigate('/login');
       }
       else{
         console.error('Passwords are different');

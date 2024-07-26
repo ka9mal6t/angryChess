@@ -101,11 +101,11 @@ const GameOnDevicePage: React.FC = () => {
             updateRating(rating);
           }
           else{
-            navigate('/angryChess/');
+            navigate('/');
           }
         } catch (error) {
           console.error('Failed to fetch username', error);
-          navigate('/angryChess/login');
+          navigate('/login');
         }
       }
     };
@@ -118,7 +118,7 @@ const GameOnDevicePage: React.FC = () => {
       <header>
       <nav className="header">
           <div className="header__logo">
-            <Link to="/angryChess/">
+            <Link to="/">
                   <svg width="75" height="75" viewBox="0 0 312.5 308.60782283369844" className="title__logo">
                       <defs id="SvgjsDefs1015"></defs>
                       <g id="SvgjsG1017" transform="matrix(2.593106007732617,0,0,2.5293106007732617,33.14240198522162,23.18502043936323)" >
@@ -133,10 +133,10 @@ const GameOnDevicePage: React.FC = () => {
                   </svg>
               </Link>
           </div>
-          <Link to={"/angryChess/statistics/" + myUserId}><div className="header__item item_1">Statistics</div></Link>
-          <Link to="/angryChess/friends"><div className="header__item item_2">Friends</div></Link>
-          <Link to="/angryChess/inventory"><div className="header__item item_3">Inventory</div></Link>
-          <Link to="/angryChess/help"><div className="header__item item_4">Help</div></Link>
+          <Link to={"/statistics/" + myUserId}><div className="header__item item_1">Statistics</div></Link>
+          <Link to="/friends"><div className="header__item item_2">Friends</div></Link>
+          <Link to="/inventory"><div className="header__item item_3">Inventory</div></Link>
+          <Link to="/help"><div className="header__item item_4">Help</div></Link>
       </nav>
   </header>
   <main>
@@ -175,10 +175,10 @@ const GameOnDevicePage: React.FC = () => {
 
   <footer className="footer">
       <div className="footer__item">
-          <Link to="/angryChess/help" className="footer__link">Help</Link>
+          <Link to="/help" className="footer__link">Help</Link>
       </div>
       <div className="footer__item">
-          <Link to="/angryChess/developers" className="footer__link">Developers</Link>
+          <Link to="/developers" className="footer__link">Developers</Link>
       </div>
       <div className="footer__item">
         AngryChess © 2024

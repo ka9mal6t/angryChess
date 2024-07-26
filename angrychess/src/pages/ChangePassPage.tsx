@@ -109,7 +109,7 @@ const ChangePassPage: React.FC = () => {
   }
 
   if (!exists) {
-    navigate('/angryChess/404');
+    navigate('/404');
   }
 
   return (

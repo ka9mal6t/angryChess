@@ -9,7 +9,7 @@ interface ProtectedRouteProps {
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ component: Component }) => {
   const { isAuthenticated } = useAuth();
   const location = useLocation();
-  return isAuthenticated ? <Component /> : <Navigate to="/angryChess/login" state={{ from: location }} />;
+  return isAuthenticated ? <Component /> : <Navigate to="/login" state={{ from: location }} />;
 };
 
 export default ProtectedRoute;

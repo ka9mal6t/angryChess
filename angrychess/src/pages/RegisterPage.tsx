@@ -150,7 +150,7 @@ const RegisterPage: React.FC = () => {
                     Alredy have an account?
                 </div>
                 <div className="add__text">
-                  <Link to="/angryChess/login" className="add__link">Login</Link>
+                  <Link to="/login" className="add__link">Login</Link>
                 </div>
             </div>
         </div>

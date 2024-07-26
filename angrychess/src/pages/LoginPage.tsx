@@ -144,7 +144,7 @@ const LoginPage: React.FC = () => {
                     Don't have an account?
                 </div>
                 <div className="add__text">
-                  <Link to="/angryChess/register" className="add__link">Create new account</Link>
+                  <Link to="/register" className="add__link">Create new account</Link>
                 </div>
             </div>
         </div>

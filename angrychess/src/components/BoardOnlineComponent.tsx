@@ -206,7 +206,7 @@ const BoardOnlineComponent: FC<BoardProps> = ({matchId, swapSides, spectator, bo
                     isOpen={modalShown}
                     handleClose={() => {
                         setModalShown(false);
-                        navigate('/angryChess/match/' + matchId)
+                        navigate('/match/' + matchId)
                     }}
                     message={draw ? 'Draw' : `${win? playerColor.toUpperCase() : 
                         (playerColor === Colors.BLACK ? Colors.WHITE.toUpperCase() : Colors.BLACK.toUpperCase())} won`}

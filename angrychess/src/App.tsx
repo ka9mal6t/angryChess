@@ -1,5 +1,5 @@
 import React from 'react';
-import { HashRouter  as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter   as Router, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
@@ -19,7 +19,7 @@ import GameWatchOnlinePage from './pages/GameWatchOnlinePage'
 const App: React.FC = () => {
   return (
     <AuthProvider>
-      <Router>
+      <Router basename="/angryChess">
         <Routes>
           <Route path="/" element={<ProtectedRoute component={HomePage} />} />
           <Route path="/login" element={<LoginPage />} />

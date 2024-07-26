@@ -52,7 +52,7 @@ const GameWatchOnlinePage: React.FC = () => {
 
         const match = await gameResult(token, matchIdNumber);
         if (match.end)
-            navigate('/angryChess/match/' + matchIdNumber);
+            navigate('/match/' + matchIdNumber);
         
         const white = await getInfoAboutUser(token, match.white_id)
         const black = await getInfoAboutUser(token, match.black_id)
@@ -81,11 +81,11 @@ const GameWatchOnlinePage: React.FC = () => {
         
       } catch (error) {
         console.error('Failed to start game', error);
-        navigate('/angryChess/');
+        navigate('/');
       }
     }
     else{
-      navigate('/angryChess/login');
+      navigate('/login');
     }
   };
 
@@ -231,7 +231,7 @@ const GameWatchOnlinePage: React.FC = () => {
       <header>
       <nav className="header">
           <div className="header__logo">
-            <Link to="/angryChess/">
+            <Link to="/">
                   <svg width="75" height="75" viewBox="0 0 312.5 308.60782283369844" className="title__logo">
                       <defs id="SvgjsDefs1015"></defs>
                       <g id="SvgjsG1017" transform="matrix(2.593106007732617,0,0,2.5293106007732617,33.14240198522162,23.18502043936323)" >
@@ -246,10 +246,10 @@ const GameWatchOnlinePage: React.FC = () => {
                   </svg>
               </Link>
           </div>
-          <Link to={"/angryChess/statistics/" + playerId}><div className="header__item item_1">Statistics</div></Link>
-          <Link to="/angryChess/friends"><div className="header__item item_2">Friends</div></Link>
-          <Link to="/angryChess/inventory"><div className="header__item item_3">Inventory</div></Link>
-          <Link to="/angryChess/help"><div className="header__item item_4">Help</div></Link>
+          <Link to={"/statistics/" + playerId}><div className="header__item item_1">Statistics</div></Link>
+          <Link to="/friends"><div className="header__item item_2">Friends</div></Link>
+          <Link to="/inventory"><div className="header__item item_3">Inventory</div></Link>
+          <Link to="/help"><div className="header__item item_4">Help</div></Link>
       </nav>
   </header>
   <main>
@@ -296,10 +296,10 @@ const GameWatchOnlinePage: React.FC = () => {
 
   <footer className="footer">
       <div className="footer__item">
-          <Link to="/angryChess/help" className="footer__link">Help</Link>
+          <Link to="/help" className="footer__link">Help</Link>
       </div>
       <div className="footer__item">
-          <Link to="/angryChess/developers" className="footer__link">Developers</Link>
+          <Link to="/developers" className="footer__link">Developers</Link>
       </div>
       <div className="footer__item">
         AngryChess © 2024

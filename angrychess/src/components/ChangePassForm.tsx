@@ -18,7 +18,7 @@ const ChangePassForm: FC<ChangePassProps> = ({token}) => {
     e.preventDefault();
     try {
       const response  = await changePassword(token, newPassword);
-      navigate('/angryChess/');
+      navigate('/');
     } catch (error) {
       setError('Time error')
       console.error('Time error', error);

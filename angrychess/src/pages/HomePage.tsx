@@ -71,7 +71,7 @@ const HomePage: React.FC = () => {
       }
     }
     else{
-      navigate('/angryChess/login');
+      navigate('/login');
     }
   };
 
@@ -84,12 +84,12 @@ const HomePage: React.FC = () => {
             const status = await checkStatusGame(token);
             if (status.match) { 
               clearInterval(intervalId);
-              navigate('/angryChess/playRating'); // Замените на ваш роут
+              navigate('/playRating'); // Замените на ваш роут
             }
             
           }
           else{
-            navigate('/angryChess/login');
+            navigate('/login');
           }
 
           } catch (error) {
@@ -112,7 +112,7 @@ const HomePage: React.FC = () => {
       }
     }
     else{
-      navigate('/angryChess/login');
+      navigate('/login');
     }
     
   };
@@ -131,11 +131,11 @@ const HomePage: React.FC = () => {
     
     const playOnOneDeviceEvent = () => {
       Cookies.set('OnOneDevice', JSON.stringify(true), { expires: 365 });
-      navigate('/angryChess/playOnOneDevice');
+      navigate('/playOnOneDevice');
     };
 
     const returnToGameEvent = () => {
-      navigate('/angryChess/playRating');
+      navigate('/playRating');
     };
 
     playOnOneDevice.addEventListener('click', playOnOneDeviceEvent);
@@ -177,7 +177,7 @@ const HomePage: React.FC = () => {
 
         } catch (error) {
           console.error('Failed to fetch username', error);
-          navigate('/angryChess/login');
+          navigate('/login');
         }
         try{
           await checkStatusGame(token);
@@ -197,7 +197,7 @@ const HomePage: React.FC = () => {
       <header>
       <nav className="header">
           <div className="header__logo">
-            <Link to="/angryChess/">
+            <Link to="/">
                   <svg width="75" height="75" viewBox="0 0 312.5 308.60782283369844" className="title__logo">
                       <defs id="SvgjsDefs1015"></defs>
                       <g id="SvgjsG1017" transform="matrix(2.593106007732617,0,0,2.5293106007732617,33.14240198522162,23.18502043936323)" >
@@ -212,10 +212,10 @@ const HomePage: React.FC = () => {
                   </svg>
               </Link>
           </div>
-          <Link to={"/angryChess/statistics/" + myUserId}><div className="header__item item_1">Statistics</div></Link>
-          <Link to="/angryChess/friends"><div className="header__item item_2">Friends</div></Link>
-          <Link to="/angryChess/inventory"><div className="header__item item_3">Inventory</div></Link>
-          <Link to="/angryChess/help"><div className="header__item item_4">Help</div></Link>
+          <Link to={"/statistics/" + myUserId}><div className="header__item item_1">Statistics</div></Link>
+          <Link to="/friends"><div className="header__item item_2">Friends</div></Link>
+          <Link to="/inventory"><div className="header__item item_3">Inventory</div></Link>
+          <Link to="/help"><div className="header__item item_4">Help</div></Link>
       </nav>
   </header>
   <main>
@@ -263,10 +263,10 @@ const HomePage: React.FC = () => {
                   </thead>
                   <tbody>
                       <tr>
-                          <td><Link style={{textDecoration: 'none', color: 'inherit'}} to={"/angryChess/statistics/" + myUserId}>{matches}</Link></td>
-                          <td className="win"><Link style={{textDecoration: 'none', color: 'inherit'}} to={"/angryChess/statistics/" + myUserId}>{wins}</Link></td>
-                          <td className="draw"><Link style={{textDecoration: 'none', color: 'inherit'}} to={"/angryChess/statistics/" + myUserId}>{draws}</Link></td>
-                          <td className="loss"><Link style={{textDecoration: 'none', color: 'inherit'}} to={"/angryChess/statistics/" + myUserId}>{losses}</Link></td>
+                          <td><Link style={{textDecoration: 'none', color: 'inherit'}} to={"/statistics/" + myUserId}>{matches}</Link></td>
+                          <td className="win"><Link style={{textDecoration: 'none', color: 'inherit'}} to={"/statistics/" + myUserId}>{wins}</Link></td>
+                          <td className="draw"><Link style={{textDecoration: 'none', color: 'inherit'}} to={"/statistics/" + myUserId}>{draws}</Link></td>
+                          <td className="loss"><Link style={{textDecoration: 'none', color: 'inherit'}} to={"/statistics/" + myUserId}>{losses}</Link></td>
                       </tr>
                     
                   </tbody>
@@ -277,10 +277,10 @@ const HomePage: React.FC = () => {
 
   <footer className="footer">
       <div className="footer__item">
-          <Link to="/angryChess/help" className="footer__link">Help</Link>
+          <Link to="/help" className="footer__link">Help</Link>
       </div>
       <div className="footer__item">
-          <Link to="/angryChess/developers" className="footer__link">Developers</Link>
+          <Link to="/developers" className="footer__link">Developers</Link>
       </div>
       <div className="footer__item">
         AngryChess © 2024
