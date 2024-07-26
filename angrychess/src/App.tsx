@@ -12,6 +12,8 @@ import NotFoundPage from './pages/NotFoundPage';
 import GameOnDevicePage from './pages/GameOnDevicePage'
 import GameOnlinePage from './pages/GameOnlinePage'
 import GameWatchPage from './pages/GameWatchPage'
+import GameWatchOnlinePage from './pages/GameWatchOnlinePage'
+
 
 
 const App: React.FC = () => {
@@ -25,6 +27,7 @@ const App: React.FC = () => {
 
           <Route path="/angryChess/statistics/:user_id" element={<ProtectedRoute component={StatsPage} />} />
           <Route path="/angryChess/match/:match_id" element={<ProtectedRoute component={GameWatchPage} />} />
+          <Route path="/angryChess/matchOnline/:match_id" element={<ProtectedRoute component={GameWatchOnlinePage} />} />
           
           <Route path='/angryChess/forgotPassword/changePassword/:token' element={<ChangePassPage />}/>
           <Route path="/angryChess/forgotPassword" element={<ForgotPage />} />

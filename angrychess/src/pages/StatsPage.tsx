@@ -64,28 +64,11 @@ const StatsPage: React.FC = () => {
 
   
 
-  // useEffect(() => {
-  //   document.body.className = isDarkTheme ? 'dark-theme' : '';
-  // }, [isDarkTheme]);
+  useEffect(() => {
+    document.body.className = isDarkTheme ? 'dark-theme' : '';
+  }, [isDarkTheme]);
 
 
-
-  // useEffect(() => {
-  //   const returnToGame = document.getElementById('returnToGame') as HTMLInputElement; 
-
-  
-
-  //   const returnToGameEvent = () => {
-  //     navigate('/angryChess/playRating');
-  //   };
-
-  
-  //   returnToGame.addEventListener('click', returnToGameEvent);
-  //   return () => {
-  //     returnToGame.removeEventListener('click', returnToGameEvent);
-  //   };
-
-  // },[]);
 
   const formatDateTime = (isoString: string) => {
     let dateObj = new Date(isoString);
@@ -204,15 +187,16 @@ const StatsPage: React.FC = () => {
                   <tbody>
 
                       
-                          {matches?.map((match, index) =>
+                          {matches?.slice().reverse().map((match, index) =>
+                          <React.Fragment key={index}>
                           <tr>
                             <td>{match.white_id === userIdNumber ? 'White' : 'Black'}</td>
                             <td >{formatDateTime('' + match.time_start)}</td>
                             <td>{match.end ? formatDateTime('' + match.time_end) : '-'}</td>
                             <td className={match.end ? (match.winner_id ? (match.winner_id === userIdNumber ? 'win': 'loss') : 'draw'): ''}>
                               {match.end ? (match.winner_id ? (match.winner_id === userIdNumber ? 'Win': 'Lose') : 'Draw'): ''}
-                              </td>
-                              
+                            </td>
+                            <td>
                                 {match.end ? 
                                 <Link style={{textDecoration: 'none', color: 'inherit'}} to={"/angryChess/match/" + match.id}>
                                   <svg width="40" height="40" viewBox="0 0 20 20" id="Dsad2312421" xmlns="http://www.w3.org/2000/svg">
@@ -249,8 +233,10 @@ const StatsPage: React.FC = () => {
                                 </svg>
                                 </Link>
                                 }
+                                </td>
                               
                           </tr>
+                          </React.Fragment>
                           )}
                   </tbody>
               </table>

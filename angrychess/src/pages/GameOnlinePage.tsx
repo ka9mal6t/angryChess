@@ -37,11 +37,15 @@ const GameOnlinePage: React.FC = () => {
   const[draw, setDraw] = useState<boolean>(false);
   const[loose, setLoose] = useState<boolean>(false);
 
+  const[matchId, setMatchId] = useState<number>(0);
+  
+
 
   const checkColor = async () => {
     if (token) {
       try {
         const {match, nickname, rating, enemy_nickname, enemy_rating, user_id, color} = await checkStatusGame(token);
+        setMatchId(match);
         const moves = await gameOnlineDetails(token, match);
         
         if(color === 0){
@@ -276,6 +280,9 @@ const GameOnlinePage: React.FC = () => {
         <LostFigures title={"White"} figures={board.lostWhiteFigures} />
       </div>
       <BoardOnlineComponent
+        matchId={matchId}
+        swapSides={true}
+        spectator={false}
         board={board}
         setBoard={setBoard}
         currentPlayer={currentPlayer}

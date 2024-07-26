@@ -6,31 +6,27 @@ import { Board } from "../models/Board";
 import { Player } from "../models/Player";
 import { Colors } from "../models/Colors";
 import LostFigures from "../components/LostFigures";
-import {getInfo, gameDetails, gameResult, getInfoAboutUser, InfoMatchResponse} from '../api/auth'
+import {gameResult, gameOnlineDetails, getInfo, getInfoAboutUser} from '../api/auth'
 
 import './css/Game.css';
 import Cookies from 'js-cookie';
 
-const GameWatchPage: React.FC = () => {
-  const { match_id } = useParams<{ match_id: string }>();
-  const matchIdNumber = match_id ? Number(match_id) : 0;
-
+const GameWatchOnlinePage: React.FC = () => {
   const token = Cookies.get('accessToken');
   const [myUserId, setMyUserId] = useState<number>();
 
+  const { match_id } = useParams<{ match_id: string }>();
+  const matchIdNumber = match_id ? Number(match_id) : 0;
+
+  const { messages, sendMessage } = useWebSocket('' + token);
   const navigate = useNavigate();
 
   const [board, setBoard] = useState<Board>(new Board());
-
-  const[len, setLen] = useState<number>(0);
-  const[counter, setCounter] = useState<number>(0);
-  const[boards, setBoards] = useState<InfoMatchResponse[]>([]);
-
-  const [playerColor, setplayerColor] = useState<Colors>(Colors.WHITE);
-
   const [whitePlayer, setWhitePlayer] = useState<Player>(new Player(Colors.WHITE));
   const [blackPlayer, setBlackPlayer] = useState<Player>(new Player(Colors.BLACK));
   const [currentPlayer, setCurrentPlayer] = useState<Player | null>(null);
+  const [playerColor, setplayerColor] = useState<Colors>(Colors.WHITE);
+  const [playerId, setplayerId] = useState<number>(0);
 
   const [ratingClass, setRatingClass] = useState<string>('');
   const [nicnameClass, setNicnameClass] = useState<string>('');
@@ -44,55 +40,47 @@ const GameWatchPage: React.FC = () => {
 
   const[draw, setDraw] = useState<boolean>(false);
   const[loose, setLoose] = useState<boolean>(false);
+ 
 
-
-  
 
   const checkColor = async () => {
     if (token) {
       try {
         Cookies.remove('OnOneDevice');
-        if (matchIdNumber){
-          const {id} = await getInfo(token);
-          setMyUserId(id);
+        const {id} = await getInfo(token);
+        setMyUserId(id);
 
-          const match = await gameResult(token, matchIdNumber);
-          if (!match.end)
-            navigate('/angryChess/matchOnline/' + matchIdNumber);
-
-          const white = await getInfoAboutUser(token, match.white_id)
-          const black = await getInfoAboutUser(token, match.black_id)
-
-          setUsername(white.username);
-          setRating(white.rating);
-          setEnemyUsername(black.username);
-          setEnemyRating(black.rating);
-          
-          updateRating(white.rating);
-          updateEnemyRating(black.rating);
-          
-
-
-          const details = await gameDetails(token, matchIdNumber);
-
-          if(details.length > 0){
-            setLen(details.length);
-            setBoards(details);
-              
-            // console.log(details);
-            // console.log(boards);
-          }
-          else
-            navigate('/angryChess/');
-          
-        }
-        else
-          navigate('/angryChess/');
+        const match = await gameResult(token, matchIdNumber);
+        if (match.end)
+            navigate('/angryChess/match/' + matchIdNumber);
         
+        const white = await getInfoAboutUser(token, match.white_id)
+        const black = await getInfoAboutUser(token, match.black_id)
+        
+        setUsername(white.username);
+        setRating(white.rating);
+        setEnemyUsername(black.username);
+        setEnemyRating(black.rating);
+        
+        updateRating(white.rating);
+        updateEnemyRating(black.rating);
 
+        const moves = await gameOnlineDetails(token, matchIdNumber);
+
+        if(moves.length > 0){
+          const boardState = JSON.parse(moves[moves.length - 1].board.board);
+          const newBoard = new Board();
+          newBoard.setBoardFromState(boardState);
+          setBoard(newBoard);
+
+          const myPlayer = playerColor === Colors.WHITE ? whitePlayer : blackPlayer;
+          const enemyPlayer = playerColor === Colors.WHITE ? blackPlayer : whitePlayer;
+          moves.length % 2 === 0 ? (playerColor === Colors.WHITE ? setCurrentPlayer(myPlayer) : setCurrentPlayer(enemyPlayer)) : 
+          (playerColor === Colors.WHITE ? setCurrentPlayer(enemyPlayer) : setCurrentPlayer(myPlayer));
+        }
         
       } catch (error) {
-        console.error('Failed to search game', error);
+        console.error('Failed to start game', error);
         navigate('/angryChess/');
       }
     }
@@ -107,6 +95,31 @@ const GameWatchPage: React.FC = () => {
     setCurrentPlayer(whitePlayer);
   }, []);
 
+  useEffect(() => {
+    messages.forEach((message) => {
+      if (message.board) {
+        if(message.board === "win"){
+          setLoose(true);
+        }
+        else if(message.board === "draw"){
+          setDraw(true);
+        }
+        else{
+          const boardState = JSON.parse(message.board);
+          const newBoard = new Board();
+          newBoard.setBoardFromState(boardState);
+          setBoard(newBoard);
+          const myPlayer = playerColor === Colors.WHITE ? whitePlayer : blackPlayer;
+          const enemyPlayer = playerColor === Colors.WHITE ? blackPlayer : whitePlayer;
+          setCurrentPlayer(enemyPlayer);
+
+        }
+       
+      }
+    });
+    
+  }, [messages]);
+
   const restart = () => {
     const newBoard = new Board();
     newBoard.initCells();
@@ -114,7 +127,6 @@ const GameWatchPage: React.FC = () => {
     setBoard(newBoard);
     setCurrentPlayer(whitePlayer);
   };
-
 
   const updateRating = (value: number) => {
     if (value < 1000) {
@@ -182,60 +194,36 @@ const GameWatchPage: React.FC = () => {
   };
 
   const handleMove = (newBoardState: Board) => {
-    setplayerColor(Colors.WHITE === playerColor ? Colors.BLACK : Colors.WHITE);    
+    // try{
+    //     const boardState = JSON.stringify(newBoardState.getBoardState());
+    //     sendMessage({ board: boardState });
+    //     setBoard(newBoardState);
+    // }
+    // catch (error) {
+    //     console.error(error);
+    // }
+    
   };
 
   const handleWin = () => {
+    // try{
+    //     sendMessage({ board: "win" });
+    // }
+    // catch (error) {
+    //     console.error(error);
+    // }
     
   };
 
   const handleDraw = () => {
-  };
-
-
+    // try{
+    //     sendMessage({ board: "draw" });
+    // }
+    // catch (error) {
+    //     console.error(error);
+    // }
     
-
-  const nextEvent = () => {
-    // console.log(boards);
-    if (counter >= 0 && counter < len  && boards){
-      const nextCounter = counter + 1;
-      if (nextCounter <= boards.length) {
-        setCounter(nextCounter);
-        const boardState = JSON.parse(boards[nextCounter - 1].board.board);
-        console.log(boardState);
-        const newBoard = new Board();
-        newBoard.setBoardFromState(boardState);
-        setBoard(newBoard);
-
-        counter % 2 === 0 ? setCurrentPlayer(blackPlayer) : setCurrentPlayer(whitePlayer);
-        counter % 2 === 0 ? setplayerColor(Colors.BLACK) : setplayerColor(Colors.WHITE);    
-      }
-    }
   };
-
-  
-  const previousEvent = () => {
-    
-    if (counter > 1 && counter <= len && boards){
-      
-      const prevCounter = counter - 1;
-      if (prevCounter >= 0) {
-        setCounter(prevCounter);
-        const boardState = JSON.parse(boards[prevCounter - 1].board.board);
-        console.log(boardState);
-        const newBoard = new Board();
-        newBoard.setBoardFromState(boardState);
-        setBoard(newBoard);
-
-        counter % 2 === 0 ? setCurrentPlayer(blackPlayer) : setCurrentPlayer(whitePlayer);
-        counter % 2 === 0 ? setplayerColor(Colors.WHITE) : setplayerColor(Colors.BLACK);    
-      }
-
-    }
-  };
-
-   
-
 
   return (
     <div>
@@ -257,7 +245,7 @@ const GameWatchPage: React.FC = () => {
                   </svg>
               </Link>
           </div>
-          <Link to={"/angryChess/statistics/" + myUserId}><div className="header__item item_1">Statistics</div></Link>
+          <Link to={"/angryChess/statistics/" + playerId}><div className="header__item item_1">Statistics</div></Link>
           <Link to="/angryChess/friends"><div className="header__item item_2">Friends</div></Link>
           <Link to="/angryChess/inventory"><div className="header__item item_3">Inventory</div></Link>
           <Link to="/angryChess/help"><div className="header__item item_4">Help</div></Link>
@@ -280,13 +268,13 @@ const GameWatchPage: React.FC = () => {
               <div className={`rating ${enemyRatingClass}`}>{enemyRating}</div>
           </div>
           <div className="game">
-          <div>
-            <LostFigures title={"White"} figures={board.lostWhiteFigures} />
-          </div>
+      <div>
+        <LostFigures title={"White"} figures={board.lostWhiteFigures} />
+      </div>
       <BoardOnlineComponent
         matchId={matchIdNumber}
         swapSides={false}
-        spectator={false}
+        spectator={true}
         board={board}
         setBoard={setBoard}
         currentPlayer={currentPlayer}
@@ -302,11 +290,6 @@ const GameWatchPage: React.FC = () => {
         <LostFigures title={"Black"} figures={board.lostBlackFigures} />
       </div>
     </div>
-      <div className="main__info" style={{textAlign: 'center'}}>
-        <button className='btn_search' id='previous' style={{width: '40px'}} onClick={previousEvent}>{'<'}</button>
-        <span className='nickname' style={{ padding: '20px'}}>{`${counter} / ${len}`}</span>
-        <button className='btn_search' id='next' style={{width: '40px'}} onClick={nextEvent}>{'>'}</button>
-      </div>
     </div>
   </main>
 
@@ -325,4 +308,4 @@ const GameWatchPage: React.FC = () => {
   );
 };
 
-export default GameWatchPage;
+export default GameWatchOnlinePage;

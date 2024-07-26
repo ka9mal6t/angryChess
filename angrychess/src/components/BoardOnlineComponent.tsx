@@ -13,6 +13,9 @@ import { MultiBackend } from 'react-dnd-multi-backend';
 import { HTML5toTouch } from 'rdndmb-html5-to-touch'
 
 interface BoardProps {
+    matchId: number,
+    swapSides: boolean,
+    spectator: boolean,
     board: Board;
     setBoard: (board: Board) => void;
     currentPlayer: Player | null;
@@ -24,7 +27,7 @@ interface BoardProps {
     sendWin: () => void;
     sendDraw: () => void;
 }
-const BoardOnlineComponent: FC<BoardProps> = ({board, setBoard, currentPlayer, swapPlayer, onMove, playerColor, draw, loose, sendWin, sendDraw}) => {
+const BoardOnlineComponent: FC<BoardProps> = ({matchId, swapSides, spectator, board, setBoard, currentPlayer, swapPlayer, onMove, playerColor, draw, loose, sendWin, sendDraw}) => {
     const [selectedCell, setSelectedCell] = useState<Cell | null>(null);
     const [showChooseModal, setShowChooseModal] = useState(false);
     const [messageModal, setMessageModal] = useState<string | null>(null);
@@ -43,13 +46,6 @@ const BoardOnlineComponent: FC<BoardProps> = ({board, setBoard, currentPlayer, s
         }
     };
 
-    // useEffect(() => {
-    //     if (modalShown) {
-    //         document.body.style.overflow = 'hidden'; // блокируем прокрутку
-    //     } else {
-    //         document.body.style.overflow = 'auto'; // разблокируем прокрутку
-    //     }
-    // }, [modalShown]);
 
     function click(cell: Cell) {
         if (selectedCell && selectedCell !== cell 
@@ -59,11 +55,14 @@ const BoardOnlineComponent: FC<BoardProps> = ({board, setBoard, currentPlayer, s
             && currentPlayer?.color === playerColor) {
             setSelectedCell(cell);
         }
+        else if (cell.figure?.color === currentPlayer?.color && spectator) {
+            setSelectedCell(cell);
+        }
     }
 
     function moveFigure(fromCell: Cell, toCell: Cell) {
         if (fromCell !== toCell && fromCell.figure?.color === currentPlayer?.color 
-            && fromCell.figure?.canMove(toCell) && currentPlayer?.color === playerColor) {
+            && fromCell.figure?.canMove(toCell) && currentPlayer?.color === playerColor && !spectator) {
             fromCell.moveFigure(toCell);
             setLastCell(toCell);
             setDragSuccess(true);
@@ -77,72 +76,27 @@ const BoardOnlineComponent: FC<BoardProps> = ({board, setBoard, currentPlayer, s
             
 
             if (board.staleMate(enemyColor)) {
-                // setMessageModal(`Draw`)
-                // setModalShown(true);
                 sendDraw();
             }
-            // if (draw) {
-            //     setMessageModal(`Draw`)
-            //     setModalShown(true);
-            // }
+         
             if (board.checkMate(enemyColor)) {
-                // setModalShown(true)
-                // setMessageModal(`${enemyColor === Colors.WHITE? Colors.BLACK.toUpperCase() : Colors.WHITE.toUpperCase()} won`)
                 sendWin();
                 setWin(true);
             }
             setSelectedCell(null);
         }
-        else if(currentPlayer?.color === playerColor){
+        else if(currentPlayer?.color === playerColor ){
             highlightCells();
         }
+        // else if(spectator){
+        //     highlightCells();
+        // }
     }
-
-    // function click(cell: Cell){
-    //     if (selectedCell && selectedCell !== cell && selectedCell.figure?.canMove(cell) && currentPlayer?.color === playerColor) {
-    //         selectedCell.moveFigure(cell);
-    //         setLastCell(cell);
-    //         if (selectedCell.checkPawnUp(cell)) {
-    //             setShowChooseModal(true);
-    //         }
-
-    //         setSelectedCell(null);
-    //         const enemyColor: Colors = swapPlayer();
-    //         onMove(board);
-
-    //         if (board.staleMate(enemyColor)) {
-    //             // setMessageModal(`Draw`)
-    //             // setModalShown(true);
-    //             sendDraw();
-    //         }
-    //         // if (draw) {
-    //         //     setMessageModal(`Draw`)
-    //         //     setModalShown(true);
-    //         // }
-    //         if (board.checkMate(enemyColor)) {
-    //             // setModalShown(true)
-    //             // setMessageModal(`${enemyColor === Colors.WHITE? Colors.BLACK.toUpperCase() : Colors.WHITE.toUpperCase()} won`)
-    //             sendWin();
-    //             setWin(true);
-    //         }
-    //         // if (loose){
-    //         //     setModalShown(true)
-    //         //     setMessageModal(`${enemyColor === Colors.WHITE? Colors.BLACK.toUpperCase() : Colors.WHITE.toUpperCase()} won`)
-    //         // }
-
-    //     } else {
-    //         if (cell.figure?.color === currentPlayer?.color && currentPlayer?.color === playerColor) {
-    //             setSelectedCell(cell);
-    //         }
-            
-    //     }
-        
-    // }
 
     function onDropFigure(fromCell: Cell, toCell: Cell) {
         setDragSuccess(false);
         moveFigure(fromCell, toCell);
-        if (!dragSuccess && fromCell.figure?.color === currentPlayer?.color) {
+        if (!dragSuccess && fromCell.figure?.color === currentPlayer?.color && !spectator) {
             setSelectedCell(fromCell);
         }
     }
@@ -163,13 +117,36 @@ const BoardOnlineComponent: FC<BoardProps> = ({board, setBoard, currentPlayer, s
     return (
         <DndProvider backend={MultiBackend} options={HTML5toTouch}>
         <div className="board">
-            {playerColor === Colors.WHITE
-                ?
-                board.cells
-                    .map((row, index) =>
+
+
+
+
+            {swapSides ? 
+        
+                (playerColor === Colors.WHITE
+                    ?
+                    board.cells
+                        .map((row, index) =>
+
+                            <React.Fragment key={index}>
+                                {row.map(cell => (
+                                    <CellComponent
+                                        key={cell.id}
+                                        cell={cell}
+                                        selected={cell.x === selectedCell?.x && cell.y === selectedCell?.y}
+                                        click={click}
+                                        onDropFigure={onDropFigure}
+                                    />
+                                ))}
+                        </React.Fragment>
+                        )
+                    
+                    :
+
+                    board.cells.slice().reverse().map((row, index) =>
 
                         <React.Fragment key={index}>
-                            {row.map(cell => (
+                            {row.slice().reverse().map(cell => (
                                 <CellComponent
                                     key={cell.id}
                                     cell={cell}
@@ -179,11 +156,14 @@ const BoardOnlineComponent: FC<BoardProps> = ({board, setBoard, currentPlayer, s
                                 />
                             ))}
                     </React.Fragment>
-                    ):
-                board.cells.slice().reverse().map((row, index) =>
+                        )) 
+            : 
+            
+            board.cells
+                .map((row, index) =>
 
                     <React.Fragment key={index}>
-                        {row.slice().reverse().map(cell => (
+                        {row.map(cell => (
                             <CellComponent
                                 key={cell.id}
                                 cell={cell}
@@ -193,7 +173,8 @@ const BoardOnlineComponent: FC<BoardProps> = ({board, setBoard, currentPlayer, s
                             />
                         ))}
                 </React.Fragment>
-                    )
+                ) 
+
             }
             {showChooseModal && (
                 <ChooseFigureComponent
@@ -209,13 +190,13 @@ const BoardOnlineComponent: FC<BoardProps> = ({board, setBoard, currentPlayer, s
                     isOpen={modalShown}
                     handleClose={() => {
                         setModalShown(false);
+                        navigate('/angryChess/match/' + matchId)
                     }}
                     message={draw ? 'Draw' : `${win? playerColor.toUpperCase() : 
                         (playerColor === Colors.BLACK ? Colors.WHITE.toUpperCase() : Colors.BLACK.toUpperCase())} won`}
                 />
             )}
-            {/* Блокировка интерактивных элементов при открытом модальном окне */}
-            {/* {modalShown && resultModal && <div className="overlay" />} */}
+
         </div>
         </DndProvider>
     );
