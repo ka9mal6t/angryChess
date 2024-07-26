@@ -19,7 +19,7 @@ import GameWatchOnlinePage from './pages/GameWatchOnlinePage'
 const App: React.FC = () => {
   return (
     <AuthProvider>
-      <Router basename="/angryChess">
+      <Router>
         <Routes>
           <Route path="/" element={<ProtectedRoute component={HomePage} />} />
           <Route path="/login" element={<LoginPage />} />
