@@ -16,25 +16,25 @@ import GameWatchOnlinePage from './pages/GameWatchOnlinePage'
 
 
 
-const App: React.FC = () => {
+onst App: React.FC = () => {
   return (
     <AuthProvider>
-      <Router >
+      <Router basename="/angryChess">
         <Routes>
-          <Route path="/angryChess" element={<ProtectedRoute component={HomePage} />} />
-          <Route path="/angryChess/login" element={<LoginPage />} />
-          <Route path="/angryChess/register" element={<RegisterPage />} />
+          <Route path="/" element={<ProtectedRoute component={HomePage} />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
 
-          <Route path="/angryChess/statistics/:user_id" element={<ProtectedRoute component={StatsPage} />} />
-          <Route path="/angryChess/match/:match_id" element={<ProtectedRoute component={GameWatchPage} />} />
-          <Route path="/angryChess/matchOnline/:match_id" element={<ProtectedRoute component={GameWatchOnlinePage} />} />
+          <Route path="/statistics/:user_id" element={<ProtectedRoute component={StatsPage} />} />
+          <Route path="/match/:match_id" element={<ProtectedRoute component={GameWatchPage} />} />
+          <Route path="/matchOnline/:match_id" element={<ProtectedRoute component={GameWatchOnlinePage} />} />
           
-          <Route path='/angryChess/forgotPassword/changePassword/:token' element={<ChangePassPage />}/>
-          <Route path="/angryChess/forgotPassword" element={<ForgotPage />} />
+          <Route path='/forgotPassword/changePassword/:token' element={<ChangePassPage />}/>
+          <Route path="/forgotPassword" element={<ForgotPage />} />
           
-          <Route path="/angryChess/playOnOneDevice" element={<ProtectedRoute component={GameOnDevicePage} />} />
-          <Route path="/angryChess/playRating" element={<ProtectedRoute component={GameOnlinePage} />} />
-          <Route path="/angryChess/*" element={<NotFoundPage />} />
+          <Route path="/playOnOneDevice" element={<ProtectedRoute component={GameOnDevicePage} />} />
+          <Route path="/playRating" element={<ProtectedRoute component={GameOnlinePage} />} />
+          <Route path='/*' element={<NotFoundPage />} />
         </Routes>
       </Router>
     </AuthProvider>
