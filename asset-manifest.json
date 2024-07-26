@@ -1,28 +1,28 @@
 {
   "files": {
-    "main.css": "/static/css/main.687fe124.css",
-    "main.js": "/static/js/main.28b1ce0e.js",
-    "static/js/453.a3b6dea2.chunk.js": "/static/js/453.a3b6dea2.chunk.js",
-    "static/media/yellow-bird.png": "/static/media/yellow-bird.c5d2fe8fe24968dcb3c9.png",
-    "static/media/white-pig.png": "/static/media/white-pig.737ce342234884b3e08c.png",
-    "static/media/king-pig-wo-eyes.png": "/static/media/king-pig-wo-eyes.d8fb4e1b5b50a2950e75.png",
-    "static/media/bird-bumerang.png": "/static/media/bird-bumerang.8a77041bb8562e62e4fc.png",
-    "static/media/logo.svg": "/static/media/logo.54180eac1afeba33e160.svg",
-    "static/media/statistics-black.svg": "/static/media/statistics-black.4317a9bb4b536ae83285.svg",
-    "static/media/statistics.svg": "/static/media/statistics.7fd8939591378134c1e0.svg",
-    "static/media/inventory-black.svg": "/static/media/inventory-black.62d1763a19e5df40e299.svg",
-    "static/media/inventory.svg": "/static/media/inventory.d7f78fe75a1bee90496b.svg",
-    "static/media/friends.svg": "/static/media/friends.5385f32f25183ef59e5b.svg",
-    "static/media/friends-black.svg": "/static/media/friends-black.e7332b96ebbbe24a7f1d.svg",
-    "index.html": "/index.html",
-    "static/media/help.svg": "/static/media/help.639bda24fb864adececf.svg",
-    "static/media/help-black.svg": "/static/media/help-black.d9605de6489265f70af5.svg",
-    "main.687fe124.css.map": "/static/css/main.687fe124.css.map",
-    "main.28b1ce0e.js.map": "/static/js/main.28b1ce0e.js.map",
-    "453.a3b6dea2.chunk.js.map": "/static/js/453.a3b6dea2.chunk.js.map"
+    "main.css": "/angryChess/static/css/main.401fa145.css",
+    "main.js": "/angryChess/static/js/main.91185571.js",
+    "static/js/453.a3b6dea2.chunk.js": "/angryChess/static/js/453.a3b6dea2.chunk.js",
+    "static/media/yellow-bird.png": "/angryChess/static/media/yellow-bird.c5d2fe8fe24968dcb3c9.png",
+    "static/media/white-pig.png": "/angryChess/static/media/white-pig.737ce342234884b3e08c.png",
+    "static/media/king-pig-wo-eyes.png": "/angryChess/static/media/king-pig-wo-eyes.d8fb4e1b5b50a2950e75.png",
+    "static/media/bird-bumerang.png": "/angryChess/static/media/bird-bumerang.8a77041bb8562e62e4fc.png",
+    "static/media/logo.svg": "/angryChess/static/media/logo.54180eac1afeba33e160.svg",
+    "static/media/statistics-black.svg": "/angryChess/static/media/statistics-black.4317a9bb4b536ae83285.svg",
+    "static/media/statistics.svg": "/angryChess/static/media/statistics.7fd8939591378134c1e0.svg",
+    "static/media/inventory-black.svg": "/angryChess/static/media/inventory-black.62d1763a19e5df40e299.svg",
+    "static/media/inventory.svg": "/angryChess/static/media/inventory.d7f78fe75a1bee90496b.svg",
+    "static/media/friends.svg": "/angryChess/static/media/friends.5385f32f25183ef59e5b.svg",
+    "static/media/friends-black.svg": "/angryChess/static/media/friends-black.e7332b96ebbbe24a7f1d.svg",
+    "static/media/help.svg": "/angryChess/static/media/help.639bda24fb864adececf.svg",
+    "static/media/help-black.svg": "/angryChess/static/media/help-black.d9605de6489265f70af5.svg",
+    "index.html": "/angryChess/index.html",
+    "main.401fa145.css.map": "/angryChess/static/css/main.401fa145.css.map",
+    "main.91185571.js.map": "/angryChess/static/js/main.91185571.js.map",
+    "453.a3b6dea2.chunk.js.map": "/angryChess/static/js/453.a3b6dea2.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.687fe124.css",
-    "static/js/main.28b1ce0e.js"
+    "static/css/main.401fa145.css",
+    "static/js/main.91185571.js"
   ]
 }
