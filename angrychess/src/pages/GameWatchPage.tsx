@@ -123,17 +123,20 @@ const GameWatchPage: React.FC = () => {
       const nextCounter = counter + 1;
       if (nextCounter <= boards.length) {
         setCounter(nextCounter);
-        const boardState = JSON.parse(boards[nextCounter - 1].board.board);
-        console.log(boardState);
-        const newBoard = new Board();
-        newBoard.setBoardFromState(boardState);
-        setBoard(newBoard);
+        const move = boards.find(board => board.move_number === nextCounter);
+        if (move){
+          const newBoard = new Board();
+          const boardState = JSON.parse(move.board.board);
+          newBoard.setBoardFromState(boardState);
+          setBoard(newBoard);
 
-        counter % 2 === 0 ? setCurrentPlayer(blackPlayer) : setCurrentPlayer(whitePlayer);
-        counter % 2 === 0 ? setplayerColor(Colors.BLACK) : setplayerColor(Colors.WHITE);    
+          counter % 2 === 0 ? setCurrentPlayer(blackPlayer) : setCurrentPlayer(whitePlayer);
+          counter % 2 === 0 ? setplayerColor(Colors.BLACK) : setplayerColor(Colors.WHITE);    
       }
+      else
+          setCounter(counter);
     }
-  };
+  }};
 
   
   const previousEvent = () => {
@@ -143,20 +146,21 @@ const GameWatchPage: React.FC = () => {
       const prevCounter = counter - 1;
       if (prevCounter >= 0) {
         setCounter(prevCounter);
-        const boardState = JSON.parse(boards[prevCounter - 1].board.board);
-        console.log(boardState);
-        const newBoard = new Board();
-        newBoard.setBoardFromState(boardState);
-        setBoard(newBoard);
-
-        counter % 2 === 0 ? setCurrentPlayer(blackPlayer) : setCurrentPlayer(whitePlayer);
-        counter % 2 === 0 ? setplayerColor(Colors.WHITE) : setplayerColor(Colors.BLACK);    
+        const move = boards.find(board => board.move_number === prevCounter);
+        if (move){
+          const newBoard = new Board();
+          const boardState = JSON.parse(move.board.board);
+          newBoard.setBoardFromState(boardState);
+          setBoard(newBoard);
+  
+          counter % 2 === 0 ? setCurrentPlayer(blackPlayer) : setCurrentPlayer(whitePlayer);
+          counter % 2 === 0 ? setplayerColor(Colors.WHITE) : setplayerColor(Colors.BLACK);    
+        }
+        else
+          setCounter(counter);
       }
-
     }
   };
-
-   
 
 
   return (

@@ -74,15 +74,24 @@ const GameWatchOnlinePage: React.FC = () => {
         const moves = await gameOnlineDetails(token, matchIdNumber);
 
         if(moves.length > 0){
-          const boardState = JSON.parse(moves[moves.length - 1].board.board);
-          const newBoard = new Board();
-          newBoard.setBoardFromState(boardState);
-          setBoard(newBoard);
+          const maxMoveNumber = Math.max(...moves.map(move => move.move_number));
+          const move = moves.find(move => move.move_number === maxMoveNumber)
+          
+          if (move){
+            const boardState = JSON.parse(move.board.board);
+            const newBoard = new Board();
+            newBoard.setBoardFromState(boardState);
+            setBoard(newBoard);
 
-          const myPlayer = playerColor === Colors.WHITE ? whitePlayer : blackPlayer;
-          const enemyPlayer = playerColor === Colors.WHITE ? blackPlayer : whitePlayer;
-          moves.length % 2 === 0 ? (playerColor === Colors.WHITE ? setCurrentPlayer(myPlayer) : setCurrentPlayer(enemyPlayer)) : 
-          (playerColor === Colors.WHITE ? setCurrentPlayer(enemyPlayer) : setCurrentPlayer(myPlayer));
+            const myPlayer = playerColor === Colors.WHITE ? whitePlayer : blackPlayer;
+            const enemyPlayer = playerColor === Colors.WHITE ? blackPlayer : whitePlayer;
+            moves.length % 2 === 0 ? (playerColor === Colors.WHITE ? setCurrentPlayer(myPlayer) : setCurrentPlayer(enemyPlayer)) : 
+            (playerColor === Colors.WHITE ? setCurrentPlayer(enemyPlayer) : setCurrentPlayer(myPlayer));
+          }
+          else{
+            console.error('Failed to start game');
+            navigate('/');
+          }
         }
         
       } catch (error) {

@@ -80,17 +80,25 @@ const GameOnlinePage: React.FC = () => {
         }
 
         if(moves.length > 0){
-          const boardState = JSON.parse(moves[moves.length - 1].board.board);
-          const newBoard = new Board();
-          newBoard.setBoardFromState(boardState);
-          setBoard(newBoard);
+          const maxMoveNumber = Math.max(...moves.map(move => move.move_number));
+          const move = moves.find(move => move.move_number === maxMoveNumber)
 
-          const myPlayer = playerColor === Colors.WHITE ? whitePlayer : blackPlayer;
-          const enemyPlayer = playerColor === Colors.WHITE ? blackPlayer : whitePlayer;
-          moves.length % 2 === 0 ? (playerColor === Colors.WHITE ? setCurrentPlayer(myPlayer) : setCurrentPlayer(enemyPlayer)) : 
-          (playerColor === Colors.WHITE ? setCurrentPlayer(enemyPlayer) : setCurrentPlayer(myPlayer));
+          if (move){
+            const boardState = JSON.parse(move.board.board);
+            const newBoard = new Board();
+            newBoard.setBoardFromState(boardState);
+            setBoard(newBoard);
+
+            const myPlayer = playerColor === Colors.WHITE ? whitePlayer : blackPlayer;
+            const enemyPlayer = playerColor === Colors.WHITE ? blackPlayer : whitePlayer;
+            moves.length % 2 === 0 ? (playerColor === Colors.WHITE ? setCurrentPlayer(myPlayer) : setCurrentPlayer(enemyPlayer)) : 
+            (playerColor === Colors.WHITE ? setCurrentPlayer(enemyPlayer) : setCurrentPlayer(myPlayer));
+          }
+          else{
+            console.error('Failed to start game');
+            navigate('/');
+          }
         }
-        
       } catch (error) {
         console.error('Failed to start game', error);
         navigate('/');
