@@ -1,10 +1,8 @@
 import React from 'react';
-import { useState, useEffect  } from 'react';
-import Cookies from 'js-cookie';
-import LoginForm from '../components/LoginForm';
-import { Navigate, Link} from 'react-router-dom';
-import { useAuth } from '../context/AuthContext'; 
-
+import { useEffect  } from 'react';
+import LoginForm from '../components/forms/LoginForm';
+import { Link} from 'react-router-dom';
+import ThemeTogglerComponent from '../components/elements/ThemeTogglerComponent'
 import bird from './img/bird-bumerang.png'
 import pig from './img/king-pig-wo-eyes.png'
 import eyes_png from './img/eyes.png'
@@ -12,33 +10,20 @@ import './css/Login.css'
 
 const LoginPage: React.FC = () => {
 
-  const [isDarkTheme, setIsDarkTheme] = useState<boolean>(() => {
-    const storedTheme = Cookies.get('theme');
-    return storedTheme ? JSON.parse(storedTheme) : false;
-  });
-
-  useEffect(() => {
-    document.body.className = isDarkTheme ? 'dark-theme' : '';
-  }, [isDarkTheme]);
-
   useEffect(() => {
     const themeToggle = document.getElementById('themeToggle') as HTMLInputElement;
     const eyes = document.getElementById('eyes') as HTMLImageElement;
     const password = document.getElementById('password') as HTMLInputElement;
 
-    // Theme change handler
     const handleThemeChange = () => {
       eyes.style.transition = `0.4s`;
       if (themeToggle.checked) {
-        document.body.classList.add('dark-theme');
         eyes.style.transform = `translateX(70%)`;
       } else {
-        document.body.classList.remove('dark-theme');
         eyes.style.transform = `translateY(51.1%) translateX(70%) rotate(-18deg)`;
       }
     };
 
-    // Password focus handlers
     const handlePasswordFocus = () => {
       eyes.style.transition = `0.4s`;
       password.classList.add('in_focus');
@@ -61,7 +46,6 @@ const LoginPage: React.FC = () => {
       }
     };
 
-    // Mouse move handler
     const handleMouseMove = (event: MouseEvent) => {
       if (document.body.classList.contains('dark-theme')) {
         const { clientX: mouseX, clientY: mouseY } = event;
@@ -80,7 +64,6 @@ const LoginPage: React.FC = () => {
       }
     };
 
-    // Event listeners
     themeToggle.addEventListener('change', handleThemeChange);
     password.addEventListener('focus', handlePasswordFocus);
     password.addEventListener('blur', handlePasswordBlur);
@@ -94,22 +77,11 @@ const LoginPage: React.FC = () => {
     };
   }, []);
 
-  const handleThemeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const newValue = event.target.checked;
-    setIsDarkTheme(newValue);
-    Cookies.set('theme', JSON.stringify(newValue), { expires: 365 });
-  };
 
   return (
     <div>
       <main>
-        <div className="toggle-container">
-            <label className="switch">
-              <input type="checkbox" id="themeToggle" checked={isDarkTheme} onChange={handleThemeChange} />
-              <span className="slider round"></span>
-            </label>
-            <span id="themeIcon" className="theme-icon"></span>
-        </div>
+        <ThemeTogglerComponent/>
         <div className="title">
             <div className="title__block">
                 <svg width="220.84918835920803" height="200.60752563476564" viewBox="0 0 312.5 308.60782283369844" className="title__logo">

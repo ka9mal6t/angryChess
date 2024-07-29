@@ -58,7 +58,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
               <span></span>
             </div>
         </div>
-    </div>; // Отображаем загрузочный индикатор пока проверяем токен
+    </div>;
   }
 
   return (

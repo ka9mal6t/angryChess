@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react';
+import { FC, useEffect } from 'react';
 import {FigureNames} from '../models/figures/BaseFigure'
 
 interface ModalProps {

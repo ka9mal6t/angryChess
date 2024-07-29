@@ -1,9 +1,5 @@
-import React, { useState, FC } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
-import { sendRecoverLink } from '../api/auth';
-import Cookies from 'js-cookie';
-import '../pages/css/ForgotMessage.css'
+import React from 'react';
+import '../../pages/css/ForgotMessage.css'
 
 
 

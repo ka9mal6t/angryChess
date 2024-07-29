@@ -1,13 +1,13 @@
 import React, {FC, useEffect, useState} from 'react';
-import { Navigate, useLocation, useNavigate, Link} from 'react-router-dom';
-import {Board} from "../models/Board";
-import {Cell} from "../models/Cell";
+import {useNavigate} from 'react-router-dom';
+import {Board} from "../../models/Board";
+import {Cell} from "../../models/Cell";
 import CellComponent from "./CellComponent";
-import {Player} from "../models/Player";
-import {Colors} from "../models/Colors";
-import {FigureNames} from '../models/figures/BaseFigure'
-import ChooseFigureComponent from "../modal/ChooseFigureComponent";
-import MessageComponent from "../modal/MessageComponent";
+import {Player} from "../../models/Player";
+import {Colors} from "../../models/Colors";
+import {FigureNames} from '../../models/figures/BaseFigure'
+import ChooseFigureComponent from "../../modal/ChooseFigureComponent";
+import MessageComponent from "../../modal/MessageComponent";
 import { DndProvider } from 'react-dnd';
 import { MultiBackend } from 'react-dnd-multi-backend';
 import { HTML5toTouch } from 'rdndmb-html5-to-touch'
@@ -30,13 +30,10 @@ interface BoardProps {
 const BoardOnlineComponent: FC<BoardProps> = ({matchId, swapSides, spectator, board, setBoard, currentPlayer, swapPlayer, onMove, playerColor, draw, loose, sendWin, sendDraw}) => {
     const [selectedCell, setSelectedCell] = useState<Cell | null>(null);
     const [showChooseModal, setShowChooseModal] = useState(false);
-    const [messageModal, setMessageModal] = useState<string | null>(null);
-    const [resultModal, setResultModal] = useState<boolean>(true);
     const [modalShown, setModalShown] = useState<boolean>(true);
     const[lastCell, setLastCell] = useState<Cell | null>(null);
     const[win, setWin] = useState<boolean>(false);
     const [dragSuccess, setDragSuccess] = useState<boolean>(false);
-
     const navigate = useNavigate();
 
     const handleSelectFigure = (figureName: FigureNames) => {
@@ -104,9 +101,6 @@ const BoardOnlineComponent: FC<BoardProps> = ({matchId, swapSides, spectator, bo
         else if(currentPlayer?.color === playerColor ){
             highlightCells();
         }
-        // else if(spectator){
-        //     highlightCells();
-        // }
     }
 
     function onDropFigure(fromCell: Cell, toCell: Cell) {
@@ -130,15 +124,13 @@ const BoardOnlineComponent: FC<BoardProps> = ({matchId, swapSides, spectator, bo
         const newBoard = board.getCopyBoard();
         setBoard(newBoard);
     }
+
     return (
         <DndProvider backend={MultiBackend} options={HTML5toTouch}>
         <div className="board">
 
-
-
-
             {swapSides ? 
-        
+
                 (playerColor === Colors.WHITE
                     ?
                     board.cells
@@ -198,7 +190,7 @@ const BoardOnlineComponent: FC<BoardProps> = ({matchId, swapSides, spectator, bo
                     handleClose={() => setShowChooseModal(false)}
                     handleSelectFigure={handleSelectFigure}/>
             )}
-            {/* Блокировка интерактивных элементов при открытом модальном окне */}
+            
             {showChooseModal && <div className="overlay" />}
 
             {modalShown && (draw || loose) &&(

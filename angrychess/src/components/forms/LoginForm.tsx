@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
-import { login } from '../api/auth';
-import Cookies from 'js-cookie';
+import { useAuth } from '../../context/AuthContext';
+import { login } from '../../api/auth';
 
 const LoginForm: React.FC = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState<string | null>(null);
   const { login: setAuth } = useAuth();
   const navigate = useNavigate();
 
@@ -18,7 +16,6 @@ const LoginForm: React.FC = () => {
       setAuth(accessToken); 
       navigate('/');
     } catch (error) {
-      setError('Login failed')
       console.error('Login failed', error);
     }
   };

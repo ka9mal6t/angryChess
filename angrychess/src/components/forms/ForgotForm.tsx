@@ -1,8 +1,5 @@
 import React, { useState, FC } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
-import { sendRecoverLink } from '../api/auth';
-import Cookies from 'js-cookie';
+import { sendRecoverLink } from '../../api/auth';
 
 
 interface ForgotProps {
@@ -11,16 +8,13 @@ interface ForgotProps {
 
 const ForgotForm: FC<ForgotProps> = ({setIsSend}) => {
   const [email, setEmail] = useState('');
-  const [error, setError] = useState<string | null>(null);
-  const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const message  = await sendRecoverLink({ email });
+      await sendRecoverLink({ email });
       setIsSend(true);
     } catch (error) {
-      setError('Email not found')
       console.error('Email not found', error);
     }
   };

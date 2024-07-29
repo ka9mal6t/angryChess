@@ -1,8 +1,6 @@
 import React, { useState, FC } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
-import { changePassword } from '../api/auth';
-import Cookies from 'js-cookie';
+import {useNavigate} from 'react-router-dom';
+import { changePassword } from '../../api/auth';
 
 interface ChangePassProps {
     token: string | undefined;
@@ -11,7 +9,6 @@ interface ChangePassProps {
 const ChangePassForm: FC<ChangePassProps> = ({token}) => {
 
   const [newPassword, setNewPassword] = useState('');
-  const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -20,7 +17,6 @@ const ChangePassForm: FC<ChangePassProps> = ({token}) => {
       const response  = await changePassword(token, newPassword);
       navigate('/');
     } catch (error) {
-      setError('Time error')
       console.error('Time error', error);
     }
   };

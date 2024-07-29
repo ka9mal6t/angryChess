@@ -1,28 +1,20 @@
 import React from 'react';
 import { useState, useEffect,   } from 'react';
 import Cookies from 'js-cookie';
-import ForgotForm from '../components/ForgotForm';
-import ForgotMessageForm from '../components/ForgotMessageForm';
-import { Navigate, Link, useParams} from 'react-router-dom';
-import { useAuth } from '../context/AuthContext'; 
+import ForgotForm from '../components/forms/ForgotForm';
+import ForgotMessageForm from '../components/forms/ForgotMessageForm';
+import ThemeTogglerComponent from '../components/elements/ThemeTogglerComponent'
 
 import bird from './img/bird-bumerang.png'
 import pig from './img/king-pig-wo-eyes.png'
 import eyes from './img/eyes.png'
+
 import './css/Forgot.css'
 
 const ForgotPage: React.FC = () => {
 
   const [isSend, setIsSend] = useState<boolean>(false);
 
-  const [isDarkTheme, setIsDarkTheme] = useState<boolean>(() => {
-    const storedTheme = Cookies.get('theme');
-    return storedTheme ? JSON.parse(storedTheme) : false;
-  });
-
-  useEffect(() => {
-    document.body.className = isDarkTheme ? 'dark-theme' : '';
-  }, [isDarkTheme]);
 
   useEffect(() => {
     const themeToggle = document.getElementById('themeToggle') as HTMLInputElement;
@@ -70,22 +62,11 @@ const ForgotPage: React.FC = () => {
     };
   }, []);
 
-  const handleThemeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const newValue = event.target.checked;
-    setIsDarkTheme(newValue);
-    Cookies.set('theme', JSON.stringify(newValue), { expires: 365 });
-  };
 
   return (
     <div>
     <main>
-        <div className="toggle-container">
-            <label className="switch">
-              <input type="checkbox" id="themeToggle" checked={isDarkTheme} onChange={handleThemeChange} />
-              <span className="slider round"></span>
-            </label>
-            <span id="themeIcon" className="theme-icon"></span>
-        </div>
+        <ThemeTogglerComponent/>
         <div className="title">
             <div className="title__block">
                 <svg width="220.84918835920803" height="200.60752563476564" viewBox="0 0 312.5 308.60782283369844" className="title__logo">
