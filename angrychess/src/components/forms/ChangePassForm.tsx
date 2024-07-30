@@ -14,7 +14,7 @@ const ChangePassForm: FC<ChangePassProps> = ({token}) => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response  = await changePassword(token, newPassword);
+      await changePassword(token, newPassword);
       navigate('/');
     } catch (error) {
       console.error('Time error', error);

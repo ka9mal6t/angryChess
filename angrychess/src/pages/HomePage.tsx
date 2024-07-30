@@ -196,11 +196,11 @@ const HomePage: React.FC = () => {
                       </tr>
                   </thead>
                   <tbody>
-                      <tr>
-                          <td><Link style={{textDecoration: 'none', color: 'inherit'}} to={"/statistics/" + myUserId}>{matches}</Link></td>
-                          <td className="win"><Link style={{textDecoration: 'none', color: 'inherit'}} to={"/statistics/" + myUserId}>{wins}</Link></td>
-                          <td className="draw"><Link style={{textDecoration: 'none', color: 'inherit'}} to={"/statistics/" + myUserId}>{draws}</Link></td>
-                          <td className="loss"><Link style={{textDecoration: 'none', color: 'inherit'}} to={"/statistics/" + myUserId}>{losses}</Link></td>
+                      <tr onClick={()=>{navigate(`/statistics/${myUserId}`)}}>
+                          <td>{matches}</td>
+                          <td className="win">{wins}</td>
+                          <td className="draw">{draws}</td>
+                          <td className="loss">{losses}</td>
                       </tr>
                     
                   </tbody>

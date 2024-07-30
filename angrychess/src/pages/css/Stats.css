@@ -200,7 +200,7 @@ body.dark-theme ::selection {
   transform: translateX(70%);
   transition: 0.4;
 }
-.dark-theme .add__form {
+.dark-theme .add__form {  
   border: #292e35 2px solid;
   background-color: #1e2028;
   transition: 0.4s;
@@ -257,7 +257,6 @@ body.dark-theme ::selection {
 }
 .dark-theme .history__table tbody tr:hover {
   background-color: #131111;
-  cursor: pointer;
 }
 .dark-theme .history__table .win {
   color: green;
@@ -282,7 +281,6 @@ body.dark-theme ::selection {
   transition: 0.4s;
   box-shadow: 0 10px 8px rgba(0, 0, 0, 0.2);
   font-size: 1.1em;
-  cursor: pointer;
 }
 .dark-theme .btn_next:disabled {
   background-color: #383b46;
@@ -318,7 +316,6 @@ body.dark-theme ::selection {
   box-shadow: 0 10px 8px rgba(0, 0, 0, 0.2);
   color: #26242e;
   font-size: 1.1em;
-  cursor: pointer;
 }
 .dark-theme .btn_prev:disabled {
   background-color: #383b46;
@@ -462,7 +459,6 @@ body.dark-theme ::selection {
   box-shadow: 0 10px 8px rgba(0, 0, 0, 0.2);
   color: #26242e;
   font-size: 1.1em;
-  cursor: pointer;
 }
 .btn_search:hover {
   background-color: #10a37f;
@@ -480,7 +476,6 @@ body.dark-theme ::selection {
   box-shadow: 0 10px 8px rgba(0, 0, 0, 0.2);
   color: #e2e6eb;
   font-size: 1.1em;
-  cursor: pointer;
   margin-bottom: 20px;
 }
 
@@ -503,7 +498,6 @@ body.dark-theme ::selection {
   box-shadow: 0 10px 8px rgba(0, 0, 0, 0.2);
   color: #26242e;
   font-size: 1.1em;
-  cursor: pointer;
 }
 .btn_next:disabled {
   background-color: #e0e0e0;
@@ -542,7 +536,6 @@ body.dark-theme ::selection {
   box-shadow: 0 10px 8px rgba(0, 0, 0, 0.2);
   color: #26242e;
   font-size: 1.1em;
-  cursor: pointer;
 }
 .btn_prev:disabled {
   background-color: #e0e0e0;
@@ -584,7 +577,6 @@ body.dark-theme ::selection {
 
 .slider {
   position: absolute;
-  cursor: pointer;
   top: 0;
   left: 0;
   right: 0;
@@ -692,7 +684,6 @@ input:checked + .slider:before {
 }
 .history__table tbody tr:hover {
   background-color: #e2e6eb;
-  cursor: pointer;
 }
 .history__table .win {
   color: green;
@@ -751,7 +742,6 @@ input:checked + .slider:before {
   border: none;
   border-radius: 3px;
   background-color: #3498db;
-  cursor: pointer;
 }
 
 .modal-content button:hover {
@@ -825,5 +815,3 @@ input:checked + .slider:before {
   fill: #ffffff;
   transition: 0.4s;
 }
-
-/*# sourceMappingURL=main_style.css.map */

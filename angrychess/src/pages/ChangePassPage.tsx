@@ -1,6 +1,5 @@
 import React from 'react';
 import { useState, useEffect  } from 'react';
-import Cookies from 'js-cookie';
 import ChangePassForm from '../components/forms/ChangePassForm';
 import ThemeTogglerComponent from '../components/elements/ThemeTogglerComponent'
 import { useParams, useNavigate} from 'react-router-dom';

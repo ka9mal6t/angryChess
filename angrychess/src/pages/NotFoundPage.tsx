@@ -8,14 +8,12 @@ import eyes_png from './img/eyes.png'
 import './css/Error.css'
 
 const NotFoundPage: React.FC = () => {
-  const [isDarkTheme, setIsDarkTheme] = useState<boolean>(() => {
-    const storedTheme = Cookies.get('theme');
-    return storedTheme ? JSON.parse(storedTheme) : false;
-  });
 
   useEffect(() => {
-    document.body.className = isDarkTheme ? 'dark-theme' : '';
-  }, [isDarkTheme]);
+    const storedTheme = Cookies.get('theme');
+    const result = storedTheme ? JSON.parse(storedTheme) : false;
+    document.body.className = result ? 'dark-theme' : '';
+  }, []);
 
 
   return (

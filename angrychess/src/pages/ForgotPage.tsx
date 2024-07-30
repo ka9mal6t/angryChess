@@ -1,6 +1,5 @@
 import React from 'react';
 import { useState, useEffect,   } from 'react';
-import Cookies from 'js-cookie';
 import ForgotForm from '../components/forms/ForgotForm';
 import ForgotMessageForm from '../components/forms/ForgotMessageForm';
 import ThemeTogglerComponent from '../components/elements/ThemeTogglerComponent'
