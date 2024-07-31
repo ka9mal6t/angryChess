@@ -10,6 +10,7 @@ import ChangePassPage from './pages/ChangePassPage';
 import ProtectedRoute from './components/ProtectedRoute';
 import NotFoundPage from './pages/NotFoundPage';
 import GameOnDevicePage from './pages/GameOnDevicePage'
+import SuperGameOnDevicePage from './pages/SuperGameOnDevicePage'
 import GameOnlinePage from './pages/GameOnlinePage'
 import GameWatchPage from './pages/GameWatchPage'
 import GameWatchOnlinePage from './pages/GameWatchOnlinePage'
@@ -33,6 +34,7 @@ const App: React.FC = () => {
           <Route path="/forgotPassword" element={<ForgotPage />} />
           
           <Route path="/playOnOneDevice" element={<ProtectedRoute component={GameOnDevicePage} />} />
+          <Route path="/supePlayOnOneDevice" element={<ProtectedRoute component={SuperGameOnDevicePage} />} />
           <Route path="/playRating" element={<ProtectedRoute component={GameOnlinePage} />} />
           <Route path='/*' element={<NotFoundPage />} />
         </Routes>
