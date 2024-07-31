@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/angryChess/static/css/main.401fa145.css",
-    "main.js": "/angryChess/static/js/main.91185571.js",
+    "main.css": "/angryChess/static/css/main.3b09a4fb.css",
+    "main.js": "/angryChess/static/js/main.b9b4a361.js",
     "static/js/453.a3b6dea2.chunk.js": "/angryChess/static/js/453.a3b6dea2.chunk.js",
     "static/media/yellow-bird.png": "/angryChess/static/media/yellow-bird.c5d2fe8fe24968dcb3c9.png",
     "static/media/white-pig.png": "/angryChess/static/media/white-pig.737ce342234884b3e08c.png",
     "static/media/king-pig-wo-eyes.png": "/angryChess/static/media/king-pig-wo-eyes.d8fb4e1b5b50a2950e75.png",
     "static/media/bird-bumerang.png": "/angryChess/static/media/bird-bumerang.8a77041bb8562e62e4fc.png",
-    "static/media/logo.svg": "/angryChess/static/media/logo.54180eac1afeba33e160.svg",
+    "static/media/logo.svg": "/angryChess/static/media/logo.93ae67a28e2ce9aeeb48.svg",
     "static/media/statistics-black.svg": "/angryChess/static/media/statistics-black.4317a9bb4b536ae83285.svg",
     "static/media/statistics.svg": "/angryChess/static/media/statistics.7fd8939591378134c1e0.svg",
     "static/media/inventory-black.svg": "/angryChess/static/media/inventory-black.62d1763a19e5df40e299.svg",
@@ -17,12 +17,12 @@
     "static/media/help.svg": "/angryChess/static/media/help.639bda24fb864adececf.svg",
     "static/media/help-black.svg": "/angryChess/static/media/help-black.d9605de6489265f70af5.svg",
     "index.html": "/angryChess/index.html",
-    "main.401fa145.css.map": "/angryChess/static/css/main.401fa145.css.map",
-    "main.91185571.js.map": "/angryChess/static/js/main.91185571.js.map",
+    "main.3b09a4fb.css.map": "/angryChess/static/css/main.3b09a4fb.css.map",
+    "main.b9b4a361.js.map": "/angryChess/static/js/main.b9b4a361.js.map",
     "453.a3b6dea2.chunk.js.map": "/angryChess/static/js/453.a3b6dea2.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.401fa145.css",
-    "static/js/main.91185571.js"
+    "static/css/main.3b09a4fb.css",
+    "static/js/main.b9b4a361.js"
   ]
 }
