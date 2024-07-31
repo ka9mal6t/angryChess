@@ -24,8 +24,16 @@ export class Pawn extends BaseFigure{
             const direction = this.cell.figure?.color === Colors.BLACK ? 1 : -1;
             const firstStepDirection = this.cell.figure?.color === Colors.BLACK ? 2 : -2;
 
-            if ((target.y === this.cell.y + direction || this.isFirstStep
-                && (target.y === this.cell.y + firstStepDirection))
+            if (target.y === this.cell.y + direction 
+                && target.x === this.cell.x
+                && this.cell.board.getCell(target.x, target.y).isEmpty()
+                && this.cell.board.getCell(this.cell.x, this.cell.y + direction).isEmpty()
+                && !this.cell.board.isWillBeKingUnderCheck(this.cell.y, this.cell.x, target.y, target.x)) {
+                return true;
+            }
+
+            if (this.isFirstStep && target.y === this.cell.y + firstStepDirection
+                && (this.color === Colors.BLACK ? this.cell.y === 1 : this.cell.y === 6)
                 && target.x === this.cell.x
                 && this.cell.board.getCell(target.x, target.y).isEmpty()
                 && this.cell.board.getCell(this.cell.x, this.cell.y + direction).isEmpty()
@@ -49,8 +57,15 @@ export class Pawn extends BaseFigure{
             const direction = this.cell.figure?.color === Colors.BLACK ? 1 : -1;
             const firstStepDirection = this.cell.figure?.color === Colors.BLACK ? 2 : -2;
 
-            if ((target.y === this.cell.y + direction || this.isFirstStep
-                && (target.y === this.cell.y + firstStepDirection))
+            if (target.y === this.cell.y + direction 
+                && target.x === this.cell.x
+                && this.cell.board.getCell(target.x, target.y).isEmpty()
+                && this.cell.board.getCell(this.cell.x, this.cell.y + direction).isEmpty()) {
+                return true;
+            }
+
+            if (this.isFirstStep && target.y === this.cell.y + firstStepDirection
+                && (this.color === Colors.BLACK ? this.cell.y === 1 : this.cell.y === 6)
                 && target.x === this.cell.x
                 && this.cell.board.getCell(target.x, target.y).isEmpty()
                 && this.cell.board.getCell(this.cell.x, this.cell.y + direction).isEmpty()) {
