@@ -7,6 +7,7 @@ import {Bishop} from "../figures/Bishop";
 import {King} from "../figures/King";
 import {Queen} from "../figures/Queen";
 import {BaseFigure, FigureNames} from "./BaseFigure";
+import { PawnClone } from "./PawnClone";
 
 export class Figure extends BaseFigure {
     constructor(color: Colors, cell: Cell) {
@@ -15,6 +16,8 @@ export class Figure extends BaseFigure {
 
     static fromJSON(json: any, cell: Cell): Figure {
         switch (json.name) {
+            case FigureNames.PAWNCLONE:
+                return new PawnClone(json.color, cell);
             case FigureNames.PAWN:
                 return new Pawn(json.color, cell);
             case FigureNames.KNIGHT:

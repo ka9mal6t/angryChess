@@ -35,7 +35,7 @@ export class Board {
         };
       }
 
-      setBoardFromState(state: any) {
+    setBoardFromState(state: any) {
         this.cells = state.cells.map((row: any) => 
           row.map((cell: any) => {
             const newCell = new Cell(this, cell.x, cell.y, cell.color, null);
@@ -82,57 +82,57 @@ export class Board {
 
     isWillBeKingUnderCheck(cell_y: number, cell_x: number, target_y: number, target_x: number): boolean {
         const newBoard = this.getCopyBoard();
-        const color = newBoard.cells[cell_y][cell_x].figure?.color;
-        const enemyColor = color === Colors.WHITE ? Colors.BLACK : Colors.WHITE
-        const oldFigure = newBoard.cells[target_y][target_x].figure;
-        newBoard.cells[target_y][target_x].figure = newBoard.cells[cell_y][cell_x].figure;
-        newBoard.cells[cell_y][cell_x].figure = null;
+        const figure = newBoard.cells[cell_y][cell_x].figure;
 
-        if (color !== undefined) {
-            const kingPos = newBoard.getKingCell(color);
-            for (let row = 0; row < 8; row++) {
-                for (let col = 0; col < 8; col++) {
-                    if (newBoard.cells[row][col].figure?.color === enemyColor
-                        && kingPos !== null
-                        && newBoard.cells[row][col].figure?.canMove(kingPos)) {
-                        newBoard.cells[cell_y][cell_x].figure = newBoard.cells[target_y][target_x].figure;
-                        newBoard.cells[target_y][target_x].figure = oldFigure;
-                        return true;
-                    }
-                }
-            }
+        if (figure === null) {
+            return false;
         }
 
-        newBoard.cells[cell_y][cell_x].figure = newBoard.cells[target_y][target_x].figure;
-        newBoard.cells[target_y][target_x].figure = oldFigure;
-        return false;
-    }
+        const color = figure.color;
+        const oldFigure = newBoard.cells[target_y][target_x].figure;
 
-    isKingUnderCheck(kingColor: Colors): boolean {
-        const enemyColor = kingColor === Colors.WHITE ? Colors.BLACK : Colors.WHITE
-        const newBoard = this.getCopyBoard();
+        newBoard.cells[target_y][target_x].figure = figure;
+        newBoard.cells[cell_y][cell_x].figure = null;
+
+        const kingUnderCheck = this.isKingUnderCheck(color, newBoard);
+
+        // Вернем фигуры обратно в исходные клетки
+        newBoard.cells[cell_y][cell_x].figure = figure;
+        newBoard.cells[target_y][target_x].figure = oldFigure;
+
+        if (kingUnderCheck) {
+            return true;
+        } else {
+            return false;
+        }
+    
+    }
+    
+
+    isKingUnderCheck(kingColor: Colors, newBoard: Board = this.getCopyBoard()): boolean {
+        const enemyColor = kingColor === Colors.WHITE ? Colors.BLACK : Colors.WHITE;
 
         const kingPos = newBoard.getKingCell(kingColor)
         for (let row = 0; row < 8; row++) {
             for (let col = 0; col < 8; col++) {
                 if (newBoard.cells[row][col].figure?.color === enemyColor
                     && kingPos !== null
-                    && newBoard.cells[row][col].figure?.canMove(kingPos)) {
-                    return true;
+                    && newBoard.cells[row][col].figure?.canMoveWithOutCheck(kingPos)) {
+                        return true;
                 }
             }
         }
         return false;
     }
 
-    checkMate(color: Colors): boolean {
-        if (this.isKingUnderCheck(color)) {
+    checkMate(color: Colors, board: Board = this): boolean {
+        if (board.isKingUnderCheck(color)) {
             for (let row = 0; row < 8; row++) {
                 for (let col = 0; col < 8; col++) {
-                    if (this.cells[row][col].figure?.color === color) {
-                        const figure = this.cells[row][col].figure;
+                    if (board.cells[row][col].figure?.color === color) {
+                        const figure = board.cells[row][col].figure;
                         for (let i = 0; i < 8; i++) {
-                            const newRow = this.cells[i];
+                            const newRow = board.cells[i];
                             for (let j = 0; j < 8; j++) {
                                 const target = newRow[j];
                                 if (figure?.canMove(target))

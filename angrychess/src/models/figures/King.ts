@@ -101,6 +101,10 @@ export class King extends BaseFigure{
         return false;
     }
 
+    canMoveWithOutCheck(target: Cell): boolean {
+        return this.canMove(target);
+    }
+    
     toJSON() {
         return {
           ...super.toJSON(),
@@ -108,9 +112,9 @@ export class King extends BaseFigure{
       }
     
       static fromJSON(json: any, cell: Cell): King {
-        const pawn = new King(json.color, cell);
-        pawn.id = json.id;
-        pawn.isFirstStep = json.isFirstStep;
-        return pawn;
+        const figure = new King(json.color, cell);
+        figure.id = json.id;
+        figure.isFirstStep = json.isFirstStep;
+        return figure;
       }
 }

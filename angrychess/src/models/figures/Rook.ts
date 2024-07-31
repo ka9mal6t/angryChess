@@ -13,16 +13,26 @@ export class Rook extends BaseFigure{
         this.name = FigureNames.ROOK;
     }
     canMove(target: Cell): boolean {
-         if(!super.canMove(target))
-            return false;
-        if(this.cell && this.cell.isEmptyVertical(target)
-        && !this.cell.board.isWillBeKingUnderCheck(this.cell.y, this.cell.x, target.y, target.x))
-            return true;
-        if(this.cell && this.cell.isEmptyHorizontal(target)
-        && !this.cell.board.isWillBeKingUnderCheck(this.cell.y, this.cell.x, target.y, target.x))
-            return true;
-        return false;
+      if(!super.canMove(target))
+          return false;
+      if(this.cell && this.cell.isEmptyVertical(target)
+      && !this.cell.board.isWillBeKingUnderCheck(this.cell.y, this.cell.x, target.y, target.x))
+          return true;
+      if(this.cell && this.cell.isEmptyHorizontal(target)
+      && !this.cell.board.isWillBeKingUnderCheck(this.cell.y, this.cell.x, target.y, target.x))
+          return true;
+      return false;
     }
+    canMoveWithOutCheck(target: Cell): boolean {
+      if(!super.canMove(target))
+        return false;
+      if(this.cell && this.cell.isEmptyVertical(target))
+          return true;
+      if(this.cell && this.cell.isEmptyHorizontal(target))
+          return true;
+      return false;
+  }
+
     toJSON() {
         return {
           ...super.toJSON(),
@@ -30,10 +40,10 @@ export class Rook extends BaseFigure{
       }
     
       static fromJSON(json: any, cell: Cell): Rook {
-        const pawn = new Rook(json.color, cell);
-        pawn.id = json.id;
-        pawn.isFirstStep = json.isFirstStep;
-        return pawn;
+        const figure = new Rook(json.color, cell);
+        figure.id = json.id;
+        figure.isFirstStep = json.isFirstStep;
+        return figure;
       }
 
 }

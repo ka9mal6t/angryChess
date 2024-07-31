@@ -25,6 +25,20 @@ export class Knight extends BaseFigure{
         }
         return false;
     }
+    canMoveWithOutCheck(target: Cell): boolean {
+      if (!super.canMove(target)) {
+          return false;
+      }
+      if (this.cell){
+        const dx = Math.abs(this.cell.x - target.x);
+        const dy = Math.abs(this.cell.y - target.y);
+
+        if (((dx === 1 && dy === 2) || (dx === 2 && dy === 1)))
+          return true;
+      }
+      return false;
+    }
+    
 
     toJSON() {
         return {
@@ -33,10 +47,10 @@ export class Knight extends BaseFigure{
       }
     
       static fromJSON(json: any, cell: Cell): Knight {
-        const pawn = new Knight(json.color, cell);
-        pawn.id = json.id;
-        pawn.isFirstStep = json.isFirstStep;
-        return pawn;
+        const figure = new Knight(json.color, cell);
+        figure.id = json.id;
+        figure.isFirstStep = json.isFirstStep;
+        return figure;
       }
 
 }

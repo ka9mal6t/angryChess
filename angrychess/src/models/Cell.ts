@@ -37,7 +37,7 @@ export class Cell{
       }
 
     isEmpty(){
-        return this.figure === null;
+        return this.figure === null || this.figure.name === FigureNames.PAWNCLONE;
     }
 
     isEnemy(target: Cell): boolean{
@@ -115,6 +115,25 @@ export class Cell{
                 }
 
             }
+            if(target.figure?.cell && target.figure?.name === FigureNames.PAWNCLONE){
+                let pawnCell: Cell | null = null;
+                
+                if (target.figure.color === Colors.BLACK) {
+                    pawnCell = target.figure.cell.board.cells[3][target.figure.cell.x];
+                }
+                else{
+                    pawnCell = target.figure.cell.board.cells[4][target.figure.cell.x];
+                    
+                }
+                if (pawnCell.figure){
+                    this.addLostFigure(pawnCell.figure);
+                    pawnCell.figure.cell = null;
+                    pawnCell.figure = null;
+                }
+                
+            }
+            
+
             this.figure?.moveFigure(target);
 
             if(target.figure){

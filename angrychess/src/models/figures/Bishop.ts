@@ -16,9 +16,17 @@ export class Bishop extends BaseFigure{
         if(!super.canMove(target))
             return false;
         if(this.cell && this.cell.isEmptyDiagonal(target)
-        && !this.cell.board.isWillBeKingUnderCheck(this.cell.y, this.cell.x, target.y, target.x))
+          && !this.cell.board.isWillBeKingUnderCheck(this.cell.y, this.cell.x, target.y, target.x))
             return true;
         return false;
+    }
+    canMoveWithOutCheck(target: Cell): boolean {
+      if (!super.canMove(target)) {
+          return false;
+      }
+      if(this.cell && this.cell.isEmptyDiagonal(target))
+          return true;
+      return false;
     }
 
 
@@ -29,9 +37,9 @@ export class Bishop extends BaseFigure{
       }
     
       static fromJSON(json: any, cell: Cell): Bishop {
-        const pawn = new Bishop(json.color, cell);
-        pawn.id = json.id;
-        pawn.isFirstStep = json.isFirstStep;
-        return pawn;
+        const figure = new Bishop(json.color, cell);
+        figure.id = json.id;
+        figure.isFirstStep = json.isFirstStep;
+        return figure;
       }
 }

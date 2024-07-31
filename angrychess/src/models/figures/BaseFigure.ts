@@ -8,6 +8,7 @@ export enum FigureNames {
     KING = "King",
     KNIGHT = "Knight",
     PAWN = "Pawn",
+    PAWNCLONE = "PawnClone",
     QUEEN = "Queen",
     ROOK = "Rook",
     BISHOP = "Bishop",
@@ -20,7 +21,6 @@ export class BaseFigure {
     name: FigureNames;
     isFirstStep: boolean = true;
     id: number;
-
 
     constructor(color: Colors, cell: Cell) {
         this.color = color;
@@ -37,6 +37,11 @@ export class BaseFigure {
             return false;
         return true;
     }
+    canMoveWithOutCheck(target: Cell): boolean {
+        if (target.figure?.color === this.color)
+            return false;
+        return true;
+    }
 
     toJSON() {
         return {
@@ -48,8 +53,22 @@ export class BaseFigure {
         };
     }
 
-    moveFigure(target: Cell) {
+    moveFigure(target: Cell){
         this.isFirstStep = false;
+        if (this.color === Colors.BLACK){
+            for(let i = 0; i < 8 ; i++){
+                const cell = this.cell?.board.cells[5][i];
+                 if (cell?.figure?.name === FigureNames.PAWNCLONE)
+                    cell.figure = null;
+            }
+        }
+        else{
+            for(let i = 0; i < 8 ; i++){
+                const cell = this.cell?.board.cells[2][i];
+                 if (cell?.figure?.name === FigureNames.PAWNCLONE)
+                    cell.figure = null;
+            }
+        }
     }
 
     checkPawnUp(target: Cell): boolean {
