@@ -9,6 +9,7 @@ export class Cell{
     readonly color: Colors;
     figure: BaseFigure | null;
     board: Board;
+    lastMoveHighlight: boolean = false;
     available: boolean; // move?
     id: number; // for react keys
 
@@ -26,12 +27,14 @@ export class Cell{
           x: this.x,
           y: this.y,
           color: this.color,
+          lastMoveHighlight: this.lastMoveHighlight,
           figure: this.figure ? this.figure.toJSON() : null
         };
       }
 
       static fromJSON(json: any): Cell {
         const cell = new Cell(json.board, json.x, json.y, json.color, null);
+        cell.lastMoveHighlight = json.lastMoveHighlight;
         cell.figure = json.figure ? json.figure.fromJSON(json.figure, cell) : null;
         return cell;
       }

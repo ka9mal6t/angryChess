@@ -55,6 +55,11 @@ const BoardComponent: FC<BoardProps> = ({ board, setBoard, currentPlayer, swapPl
         if (fromCell !== toCell && fromCell.figure?.color === currentPlayer?.color 
             && fromCell.figure?.canMove(toCell)) {
             fromCell.moveFigure(toCell);
+
+            fromCell.board.clearLastMoveHighlight();
+            fromCell.lastMoveHighlight = true;
+            toCell.lastMoveHighlight = true;
+
             setLastCell(toCell);
             setDragSuccess(true);
 

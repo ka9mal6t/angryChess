@@ -75,6 +75,11 @@ const BoardOnlineComponent: FC<BoardProps> = ({matchId, swapSides, spectator, bo
         if (fromCell !== toCell && fromCell.figure?.color === currentPlayer?.color 
             && fromCell.figure?.canMove(toCell) && currentPlayer?.color === playerColor && !spectator) {
             fromCell.moveFigure(toCell);
+
+            fromCell.board.clearLastMoveHighlight();
+            fromCell.lastMoveHighlight = true;
+            toCell.lastMoveHighlight = true;
+            
             setLastCell(toCell);
             setDragSuccess(true);
 
@@ -106,7 +111,7 @@ const BoardOnlineComponent: FC<BoardProps> = ({matchId, swapSides, spectator, bo
     function onDropFigure(fromCell: Cell, toCell: Cell) {
         setDragSuccess(false);
         moveFigure(fromCell, toCell);
-        if (!dragSuccess && fromCell.figure?.color === currentPlayer?.color && !spectator) {
+        if (!dragSuccess && fromCell.figure?.color === currentPlayer?.color && currentPlayer?.color === playerColor && !spectator) {
             setSelectedCell(fromCell);
         }
     }

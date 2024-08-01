@@ -703,14 +703,15 @@ input:checked + .slider:before {
 }
 
 .selected {
-  background-color: brown;
+  background-color: #b4721c;
 }
 
 .available {
   width: 12px;
   height: 12px;
   border-radius: 50%;
-  background-color: green;
+  background-color: #008000;
+  z-index: 10;
 }
 
 .lost {
@@ -834,4 +835,17 @@ input:checked + .slider:before {
 .highlighted{
   background: rgba(0,0,0,0.7);
   transition: display 0.3s;
+}
+
+.lastMoveHighlight{
+  background-color: #008000;
+  z-index: 1;
+}
+
+.lastMoveHighlight .available {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: #ffffff;
+  z-index: 10;
 }

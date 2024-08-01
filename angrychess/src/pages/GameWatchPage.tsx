@@ -130,8 +130,8 @@ const GameWatchPage: React.FC = () => {
           newBoard.setBoardFromState(boardState);
           setBoard(newBoard);
 
-          counter % 2 === 0 ? setCurrentPlayer(blackPlayer) : setCurrentPlayer(whitePlayer);
-          counter % 2 === 0 ? setplayerColor(Colors.BLACK) : setplayerColor(Colors.WHITE);    
+          nextCounter % 2 === 0 ? setCurrentPlayer(whitePlayer) : setCurrentPlayer(blackPlayer);
+          nextCounter % 2 === 0 ? setplayerColor(Colors.WHITE) : setplayerColor(Colors.BLACK);    
       }
       else
           setCounter(counter);
@@ -153,8 +153,8 @@ const GameWatchPage: React.FC = () => {
           newBoard.setBoardFromState(boardState);
           setBoard(newBoard);
   
-          counter % 2 === 0 ? setCurrentPlayer(blackPlayer) : setCurrentPlayer(whitePlayer);
-          counter % 2 === 0 ? setplayerColor(Colors.WHITE) : setplayerColor(Colors.BLACK);    
+          prevCounter % 2 === 0 ? setCurrentPlayer(whitePlayer) : setCurrentPlayer(blackPlayer);
+          prevCounter % 2 === 0 ? setplayerColor(Colors.WHITE) : setplayerColor(Colors.BLACK);    
         }
         else
           setCounter(counter);

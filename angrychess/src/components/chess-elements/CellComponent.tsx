@@ -28,11 +28,12 @@ const CellComponent: FC<CellProps> = ({ cell, selected, click, onDropFigure }) =
                 'cell',
                 cell.color,
                 selected ? 'selected' : null,
+                cell.lastMoveHighlight ? 'lastMoveHighlight': null,
                 cell.isKingUnderCheck() ? 'isKingUnderCheck' : null,
                 isOver && canDrop ? 'highlighted' : null, // Добавляем класс для выделения ячейки
             ].join(' ')}
             onClick={() => click(cell)}
-            style={{background: cell.available && cell.figure ? 'green' : ''}}
+            style={{background: cell.available && cell.figure ? '#be3b24' : ''}}
         >
             {cell.available && !cell.figure && <div className={'available'} />}
             {
