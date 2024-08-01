@@ -3,7 +3,7 @@ import {FigureNames} from './BaseFigure'
 import {Colors} from "../Colors";
 import {Cell} from "../Cell";
 import blackLogo from "../../assets/black-pawn.png";
-import whiteLogo from "../../assets/pngwing.com (14).png";
+import whiteLogo from "../../assets/white-pawn.png";
 import {Queen} from "./Queen";
 import {Bishop} from "./Bishop";
 import {Knight} from "./Knight";
@@ -24,8 +24,15 @@ export class Pawn extends BaseFigure{
             const direction = this.cell.figure?.color === Colors.BLACK ? 1 : -1;
             const firstStepDirection = this.cell.figure?.color === Colors.BLACK ? 2 : -2;
 
-            if ((target.y === this.cell.y + direction || this.isFirstStep
-                && (target.y === this.cell.y + firstStepDirection))
+            if (target.y === this.cell.y + direction 
+                && target.x === this.cell.x
+                && this.cell.board.getCell(target.x, target.y).isEmpty()
+                && this.cell.board.getCell(this.cell.x, this.cell.y + direction).isEmpty()
+                && !this.cell.board.isWillBeKingUnderCheck(this.cell.y, this.cell.x, target.y, target.x)) {
+                return true;
+            }
+
+            if (this.isFirstStep && target.y === this.cell.y + firstStepDirection
                 && target.x === this.cell.x
                 && this.cell.board.getCell(target.x, target.y).isEmpty()
                 && this.cell.board.getCell(this.cell.x, this.cell.y + direction).isEmpty()
@@ -49,8 +56,14 @@ export class Pawn extends BaseFigure{
             const direction = this.cell.figure?.color === Colors.BLACK ? 1 : -1;
             const firstStepDirection = this.cell.figure?.color === Colors.BLACK ? 2 : -2;
 
-            if ((target.y === this.cell.y + direction || this.isFirstStep
-                && (target.y === this.cell.y + firstStepDirection))
+            if (target.y === this.cell.y + direction 
+                && target.x === this.cell.x
+                && this.cell.board.getCell(target.x, target.y).isEmpty()
+                && this.cell.board.getCell(this.cell.x, this.cell.y + direction).isEmpty()) {
+                return true;
+            }
+
+            if (this.isFirstStep && target.y === this.cell.y + firstStepDirection
                 && target.x === this.cell.x
                 && this.cell.board.getCell(target.x, target.y).isEmpty()
                 && this.cell.board.getCell(this.cell.x, this.cell.y + direction).isEmpty()) {
@@ -95,7 +108,6 @@ export class Pawn extends BaseFigure{
     
     moveFigure(target: Cell){
         super.moveFigure(target);
-        
         if(this.cell && Math.abs(this.cell.y - target.y) === 2){
             const direction = this.cell.figure?.color === Colors.BLACK ? 1 : -1;
             const cell = this.cell.board.getCell( this.cell.x,  this.cell.y + direction);
