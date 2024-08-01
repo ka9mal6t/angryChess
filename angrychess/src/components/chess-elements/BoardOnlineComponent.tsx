@@ -110,7 +110,20 @@ const BoardOnlineComponent: FC<BoardProps> = ({matchId, swapSides, spectator, bo
 
     function onDropFigure(fromCell: Cell, toCell: Cell) {
         setDragSuccess(false);
-        moveFigure(fromCell, toCell);
+
+        // rokirovka
+                
+        if(fromCell.figure?.name === FigureNames.KING 
+            && toCell.figure?.name === FigureNames.ROOK
+            && fromCell.figure.color === toCell.figure.color){
+                moveFigure(fromCell, toCell.x === 0 ? 
+                    toCell.board.getCell(fromCell.x - 2, toCell.y) : 
+                    toCell.board.getCell(fromCell.x + 2, toCell.y));
+        }
+        else{
+            moveFigure(fromCell, toCell);
+        }
+        
         if (!dragSuccess && fromCell.figure?.color === currentPlayer?.color && currentPlayer?.color === playerColor && !spectator) {
             setSelectedCell(fromCell);
         }

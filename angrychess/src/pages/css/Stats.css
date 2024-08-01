@@ -333,7 +333,7 @@ body.dark-theme ::selection {
 .main {
   background-color: #ffffff;
   background-image: url("../img/logo.svg");
-  height: 90vh;
+  min-height: 90vh; 
   position: relative;
   z-index: 3;
   display: flex;
@@ -347,48 +347,6 @@ body.dark-theme ::selection {
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
-}
-.main__button {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  padding: 10px;
-}
-.main__info {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  padding: 10px;
-}
-.main__img-light {
-  position: absolute;
-  z-index: 2;
-  left: 10%;
-  bottom: 0;
-  width: 100px;
-  height: 100px;
-  transition: 0.4s;
-}
-@media screen and (min-width: 768px) {
-  .main__img-light {
-    width: 150px;
-    height: 150px;
-  }
-}
-.main__img-dark {
-  position: absolute;
-  z-index: 2;
-  right: 10%;
-  bottom: 0;
-  width: 100px;
-  height: 100px;
-  transition: 0.4s;
-}
-@media screen and (min-width: 768px) {
-  .main__img-dark {
-    width: 150px;
-    height: 150px;
-  }
 }
 
 .nickname {
@@ -447,71 +405,6 @@ body.dark-theme ::selection {
   color: #7910a3;
 }
 
-.btn_search {
-  font-weight: bold;
-  padding: 12px 5px;
-  width: 200px;
-  margin: 10px;
-  background-color: #e2e6eb;
-  border-radius: 5px;
-  border: none;
-  transition: 0.4s;
-  box-shadow: 0 10px 8px rgba(0, 0, 0, 0.2);
-  color: #26242e;
-  font-size: 1.1em;
-}
-.btn_search:hover {
-  background-color: #10a37f;
-  transition: all 0.4s;
-}
-
-.btn_rating {
-  padding: 12px 5px;
-  width: 150px;
-  margin: 10px;
-  background-color: #1fac2b;
-  border-radius: 5px;
-  border: none;
-  transition: 0.4s;
-  box-shadow: 0 10px 8px rgba(0, 0, 0, 0.2);
-  color: #e2e6eb;
-  font-size: 1.1em;
-  margin-bottom: 20px;
-}
-
-.status__in_game {
-  font-style: bold;
-  color: #c2411a;
-  font-size: 24px;
-  margin: 0;
-}
-
-.btn_next {
-  padding: 12px 5px;
-  width: 50px;
-  margin: 10px;
-  color: #eff1f1;
-  background-color: #e2e6eb;
-  border-radius: 5px;
-  border: none;
-  transition: 0.4s;
-  box-shadow: 0 10px 8px rgba(0, 0, 0, 0.2);
-  color: #26242e;
-  font-size: 1.1em;
-}
-.btn_next:disabled {
-  background-color: #e0e0e0;
-  color: #a0a0a0;
-}
-.btn_next:disabled:hover {
-  background-color: #e0e0e0;
-  cursor: not-allowed;
-}
-.btn_next:hover {
-  background-color: #10a37f;
-  transition: all 0.4s;
-}
-
 .counter_history {
   padding: 12px 5px;
   width: 50px;
@@ -522,32 +415,6 @@ body.dark-theme ::selection {
   transition: 0.4s;
   color: #26242e;
   font-size: 1.3em;
-}
-
-.btn_prev {
-  padding: 12px 5px;
-  width: 50px;
-  margin: 10px;
-  color: #eff1f1;
-  background-color: #e2e6eb;
-  border-radius: 5px;
-  border: none;
-  transition: 0.4s;
-  box-shadow: 0 10px 8px rgba(0, 0, 0, 0.2);
-  color: #26242e;
-  font-size: 1.1em;
-}
-.btn_prev:disabled {
-  background-color: #e0e0e0;
-  color: #a0a0a0;
-}
-.btn_prev:disabled:hover {
-  background-color: #e0e0e0;
-  cursor: not-allowed;
-}
-.btn_prev:hover {
-  background-color: #10a37f;
-  transition: all 0.4s;
 }
 
 .toggle-container {

@@ -336,7 +336,7 @@ body.dark-theme ::selection {
 .main {
   background-color: #ffffff;
   background-image: url("../img/logo.svg");
-  height: 90vh;
+  min-height: 90vh; 
   position: relative;
   z-index: 3;
   display: flex;
