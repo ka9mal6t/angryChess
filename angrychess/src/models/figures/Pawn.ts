@@ -33,7 +33,6 @@ export class Pawn extends BaseFigure{
             }
 
             if (this.isFirstStep && target.y === this.cell.y + firstStepDirection
-                && (this.color === Colors.BLACK ? this.cell.y === 1 : this.cell.y === 6)
                 && target.x === this.cell.x
                 && this.cell.board.getCell(target.x, target.y).isEmpty()
                 && this.cell.board.getCell(this.cell.x, this.cell.y + direction).isEmpty()
@@ -65,7 +64,6 @@ export class Pawn extends BaseFigure{
             }
 
             if (this.isFirstStep && target.y === this.cell.y + firstStepDirection
-                && (this.color === Colors.BLACK ? this.cell.y === 1 : this.cell.y === 6)
                 && target.x === this.cell.x
                 && this.cell.board.getCell(target.x, target.y).isEmpty()
                 && this.cell.board.getCell(this.cell.x, this.cell.y + direction).isEmpty()) {

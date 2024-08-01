@@ -1,18 +1,18 @@
 import {Colors} from "./Colors";
 import {Figure} from "./figures/Figure";
-import {FigureNames} from './figures/BaseFigure'
+import {FigureNames, BaseFigure} from './figures/BaseFigure'
 import {Board} from "./Board";
 
 export class Cell{
     readonly x: number;
     readonly y: number;
     readonly color: Colors;
-    figure: Figure | null;
+    figure: BaseFigure | null;
     board: Board;
     available: boolean; // move?
     id: number; // for react keys
 
-    constructor(board: Board, x: number, y: number, color: Colors, figure: Figure | null) {
+    constructor(board: Board, x: number, y: number, color: Colors, figure: BaseFigure | null) {
         this.x = x;
         this.y = y;
         this.color = color;
@@ -32,7 +32,7 @@ export class Cell{
 
       static fromJSON(json: any): Cell {
         const cell = new Cell(json.board, json.x, json.y, json.color, null);
-        cell.figure = json.figure ? Figure.fromJSON(json.figure, cell) : null;
+        cell.figure = json.figure ? json.figure.fromJSON(json.figure, cell) : null;
         return cell;
       }
 
@@ -88,14 +88,14 @@ export class Cell{
 
         return true;
     }
-    setFigure(figure: Figure | null){
+    setFigure(figure: BaseFigure | null){
         if (figure){
             this.figure = figure;
             this.figure.cell = this;
         }
     }
 
-    addLostFigure(figure: Figure){
+    addLostFigure(figure: BaseFigure){
         figure.color === Colors.WHITE ?
             this.board.lostWhiteFigures.push(figure) :
             this.board.lostBlackFigures.push(figure)
@@ -134,7 +134,7 @@ export class Cell{
             }
             
 
-            this.figure?.moveFigure(target);
+            this.figure.moveFigure(target);
 
             if(target.figure){
                 this.addLostFigure(target.figure);
