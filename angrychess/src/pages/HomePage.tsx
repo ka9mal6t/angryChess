@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate, Link} from 'react-router-dom';
+import { useNavigate} from 'react-router-dom';
 import { getInfo, startSearchGame, stopSearchGame, checkStatusGame} from '../api/auth';
 import {updateRating} from '../functional/raiting'
 import LoadingComponent from '../components/elements/LoadingComponent'

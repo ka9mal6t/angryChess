@@ -1,0 +1,139 @@
+.dark-theme .burger__line {
+    background-color: #ffffff;
+  }
+  
+  .burger {
+    display: block;
+    cursor: pointer;
+    z-index: 100;
+  }
+  @media screen and (min-width: 768px) {
+    .burger {
+      display: none;
+    }
+  }
+  .burger__line {
+    width: 50px;
+    height: 5px;
+    background-color: #26242e;
+    margin: 13px 0;
+    transition: 0.4s;
+  }
+  .burger.active .burger__line:nth-child(1) {
+    transform: rotate(-45deg) translate(-5px, 20px);
+    background-color: #ffffff;
+  }
+  .burger.active .burger__line:nth-child(2) {
+    opacity: 0;
+  }
+  .burger.active .burger__line:nth-child(3) {
+    transform: rotate(45deg) translate(-5px, -20px);
+    background-color: #ffffff;
+  }
+  
+  .burger-menu {
+    position: absolute;
+    top: -100%;
+    left: -100%;
+    height: 100%;
+    width: 100%;
+    z-index: 99;
+    transition: all 0.4s ease;
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+  .burger-menu.active {
+    transform: translate(100%, 100%);
+    transition: all 0.4s ease;
+  }
+  .burger-menu a {
+    text-decoration: none;
+    color: #ffffff;
+  }
+  .burger-menu__img {
+    padding-left: 50px;
+  }
+  @media screen and (min-width: 450px) {
+    .burger-menu__img {
+      padding-left: 100px;
+    }
+  }
+  @media screen and (min-width: 550px) {
+    .burger-menu__img {
+      padding-left: 130px;
+    }
+  }
+  @media screen and (min-width: 600px) {
+    .burger-menu__img {
+      padding-left: 150px;
+    }
+  }
+  @media screen and (min-width: 670px) {
+    .burger-menu__img {
+      padding-left: 180px;
+    }
+  }
+  .burger-menu__logo {
+    width: 100px;
+    height: 100px;
+  }
+  .burger-menu__item {
+    height: 100px;
+    line-height: 75px;
+    padding: 50px 0 0 50px;
+    font-size: 2.4em;
+  }
+  @media screen and (min-width: 450px) {
+    .burger-menu__item {
+      padding: 50px 0 0 120px;
+    }
+  }
+  .burger-menu__item.item_1::before {
+    content: url("../../../pages/img/statistics.svg");
+    display: inline-block;
+    margin-right: 5px;
+    vertical-align: middle;
+    margin-bottom: 28px;
+    width: 50px;
+    height: 50px;
+  }
+  .burger-menu__item.item_2::before {
+    content: url("../../../pages/img/friends.svg");
+    display: inline-block;
+    margin-right: 5px;
+    vertical-align: middle;
+    margin-bottom: 15px;
+    width: 50px;
+    height: 50px;
+  }
+  .burger-menu__item.item_3::before {
+    content: url("../../../pages/img/inventory.svg");
+    display: inline-block;
+    margin-right: 5px;
+    vertical-align: middle;
+    margin-bottom: 20px;
+    width: 50px;
+    height: 50px;
+  }
+  .burger-menu__item.item_4::before {
+    content: url("../../../pages/img/help.svg");
+    display: inline-block;
+    margin-right: 5px;
+    vertical-align: middle;
+    margin-bottom: 15px;
+    width: 50px;
+    height: 50px;
+  }
+  @media screen and (min-width: 768px) {
+    .burger-menu {
+      display: none;
+    }
+  }
+  
+  #SvgjsG1010 {
+    fill: #ffffff;
+    transition: 0.4s;
+  }
+
+  .not-scroll{
+    overflow: hidden;
+  }
