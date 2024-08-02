@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/angryChess/static/css/main.12c55f46.css",
-    "main.js": "/angryChess/static/js/main.a7e1471d.js",
+    "main.js": "/angryChess/static/js/main.314efad1.js",
     "static/js/453.a3b6dea2.chunk.js": "/angryChess/static/js/453.a3b6dea2.chunk.js",
     "static/media/yellow-bird.png": "/angryChess/static/media/yellow-bird.c5d2fe8fe24968dcb3c9.png",
     "static/media/white-pig.png": "/angryChess/static/media/white-pig.737ce342234884b3e08c.png",
@@ -18,11 +18,11 @@
     "static/media/help-black.svg": "/angryChess/static/media/help-black.d9605de6489265f70af5.svg",
     "index.html": "/angryChess/index.html",
     "main.12c55f46.css.map": "/angryChess/static/css/main.12c55f46.css.map",
-    "main.a7e1471d.js.map": "/angryChess/static/js/main.a7e1471d.js.map",
+    "main.314efad1.js.map": "/angryChess/static/js/main.314efad1.js.map",
     "453.a3b6dea2.chunk.js.map": "/angryChess/static/js/453.a3b6dea2.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.12c55f46.css",
-    "static/js/main.a7e1471d.js"
+    "static/js/main.314efad1.js"
   ]
 }
