@@ -645,34 +645,41 @@ input:checked + .slider:before {
 }
 @media screen and (max-width: 600px) {
   .board {
-    width: 384px;
-    height: 384px;
+    border: none;
+    width: 464px;
+    height: 464px;
   }
 }
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 600px) {
+  .main {
+    padding: 0;
+  }
+}
+@media screen and (max-width: 500px) {
   .board {
-    width: 320px;
-    height: 320px;
+    border: none;
+    width: 100%;
+    height: auto;
   }
 }
 
 .cell {
   width: 64px;
-  height: 64px;
+  height: auto;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 @media screen and (max-width: 600px) {
   .cell {
-    width: 48px;
-    height: 48px;
-  }
+    width: 58px;
+    height: auto;
+  } 
 }
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 500px) {
   .cell {
-    width: 40px;
-    height: 40px;
+    width: 12.5%;
+    height: auto;
   }
 }
 
@@ -687,12 +694,7 @@ input:checked + .slider:before {
     height: 38px;
   }
 }
-@media screen and (max-width: 400px) {
-  .cell img {
-    width: 32px;
-    height: 32px;
-  }
-}
+
 
 .black {
   background-color: #00bfff;
@@ -757,6 +759,8 @@ input:checked + .slider:before {
     height: 20px;
   }
 }
+
+
 
 .lostFigures > div {
   flex-basis: calc(25% - 5px);

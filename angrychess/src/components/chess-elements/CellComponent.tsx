@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useRef} from 'react';
 import { Cell } from "../../models/Cell";
 import { useDrag, useDrop } from 'react-dnd';
 
@@ -33,7 +33,7 @@ const CellComponent: FC<CellProps> = ({ cell, selected, click, onDropFigure }) =
                 isOver && canDrop ? 'highlighted' : null, // Добавляем класс для выделения ячейки
             ].join(' ')}
             onClick={() => click(cell)}
-            style={{background: cell.available && cell.figure ? '#be3b24' : ''}}
+            style={{background: cell.available && cell.figure ? '#be3b24' : '', aspectRatio: 1 / 1}}
         >
             {cell.available && !cell.figure && <div className={'available'} />}
             {
