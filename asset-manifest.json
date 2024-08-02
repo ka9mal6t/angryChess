@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/angryChess/static/css/main.9d6f322c.css",
-    "main.js": "/angryChess/static/js/main.698de02a.js",
+    "main.css": "/angryChess/static/css/main.b054e23c.css",
+    "main.js": "/angryChess/static/js/main.2ca86912.js",
     "static/js/453.a3b6dea2.chunk.js": "/angryChess/static/js/453.a3b6dea2.chunk.js",
     "static/media/yellow-bird.png": "/angryChess/static/media/yellow-bird.c5d2fe8fe24968dcb3c9.png",
     "static/media/white-pig.png": "/angryChess/static/media/white-pig.737ce342234884b3e08c.png",
@@ -17,12 +17,12 @@
     "static/media/help.svg": "/angryChess/static/media/help.639bda24fb864adececf.svg",
     "static/media/help-black.svg": "/angryChess/static/media/help-black.d9605de6489265f70af5.svg",
     "index.html": "/angryChess/index.html",
-    "main.9d6f322c.css.map": "/angryChess/static/css/main.9d6f322c.css.map",
-    "main.698de02a.js.map": "/angryChess/static/js/main.698de02a.js.map",
+    "main.b054e23c.css.map": "/angryChess/static/css/main.b054e23c.css.map",
+    "main.2ca86912.js.map": "/angryChess/static/js/main.2ca86912.js.map",
     "453.a3b6dea2.chunk.js.map": "/angryChess/static/js/453.a3b6dea2.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.9d6f322c.css",
-    "static/js/main.698de02a.js"
+    "static/css/main.b054e23c.css",
+    "static/js/main.2ca86912.js"
   ]
 }
