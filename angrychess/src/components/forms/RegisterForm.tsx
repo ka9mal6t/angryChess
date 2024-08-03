@@ -1,8 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { register } from '../../api/auth';
+import ErrorComponent from '../elements/ErrorComponent'
 
-const RegisterForm: React.FC = () => {
+interface IRegisterComponent{
+  setLoading: (a: boolean) => void;
+}
+const RegisterForm: FC<IRegisterComponent> = ({setLoading}) => {
+  const [error, setError] = useState<boolean>(false);
+  const [errorText, setErrorText] = useState<string>('');
+  
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -11,15 +18,22 @@ const RegisterForm: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setLoading(true);
     try {
       if (password === cnfrm_password){
         await register({ username,email, password });
         navigate('/login');
       }
       else{
+        setLoading(false);
+        setError(true);
+        setErrorText('Passwords are different');
         console.error('Passwords are different');
       }
     } catch (error) {
+      setLoading(false);
+      setError(true);
+      setErrorText('Email or nickname is busy');
       console.error('Registration failed', error);
     }
   };
@@ -61,7 +75,20 @@ const RegisterForm: React.FC = () => {
       <div className="register__button">
           <button type="submit" className="register__cfm-btn">Sing Up</button>
       </div>
+      {error && (
+        <ErrorComponent
+              isOpen={error}
+              message={errorText}
+              handleClose={() => {
+                  setError(false);
+              }}
+              messageCancel={'Close'}
+          />
+      )}
+      
+      {error && <div className="overlay" />}
     </form>
+    
   );
 };
 

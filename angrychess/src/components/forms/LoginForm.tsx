@@ -1,9 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, FC } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
+import ErrorComponent from '../elements/ErrorComponent'
 import { login } from '../../api/auth';
 
-const LoginForm: React.FC = () => {
+interface ILoginComponent{
+  setLoading: (a: boolean) => void;
+}
+const LoginForm: FC<ILoginComponent> = ({setLoading}) => {
+  const [error, setError] = useState<boolean>(false);
+  const [errorText, setErrorText] = useState<string>('');
+
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const { login: setAuth } = useAuth();
@@ -11,11 +18,15 @@ const LoginForm: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setLoading(true);
     try {
       const { accessToken } = await login({ username, password });
       setAuth(accessToken); 
       navigate('/');
     } catch (error) {
+      setLoading(false);
+      setError(true);
+      setErrorText('Not correct data');
       console.error('Login failed', error);
     }
   };
@@ -38,6 +49,19 @@ const LoginForm: React.FC = () => {
         <div className="login__button">
             <button type="submit" className="login__cfm-btn">Login</button>
         </div>
+
+        {error && (
+          <ErrorComponent
+                isOpen={error}
+                message={errorText}
+                handleClose={() => {
+                    setError(false);
+                }}
+                messageCancel={'Close'}
+            />
+        )}
+        
+        {error && <div className="overlay" />}
     </form>    
   );
 };

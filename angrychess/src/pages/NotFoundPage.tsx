@@ -18,17 +18,20 @@ const NotFoundPage: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    const image = document.getElementById("image-error") as HTMLInputElement;
-    
+    const image1 = document.getElementById("image-error1") as HTMLInputElement;
+    const image2 = document.getElementById("image-error2") as HTMLInputElement;
 
     const imageEvent = () => {
       navigate('/');
     };
 
-    image.addEventListener('click', imageEvent);
+    image1.addEventListener('click', imageEvent);
+    image2.addEventListener('click', imageEvent);
     return () => {
-      image.removeEventListener('click', imageEvent);
+      image1.removeEventListener('click', imageEvent);
+      image2.removeEventListener('click', imageEvent);
     };
+    
 
   },[]);
 
@@ -38,8 +41,8 @@ const NotFoundPage: React.FC = () => {
       <main>
         <div className="error">
             <p className="error__p">4</p>
-            <img src={bird} draggable="false" id="image-error" alt="0" className="error__img-light"/>
-            <img src={pig} draggable="false" id="image-error" alt="0" className="error__img-dark"/>
+            <img src={bird} draggable="false" id="image-error1" alt="0" className="error__img-light" style={{cursor: 'pointer'}}/>
+            <img src={pig} draggable="false" id="image-error2" alt="0" className="error__img-dark" style={{cursor: 'pointer'}}/>
             <img src={eyes_png} draggable="false" alt="0" id="eyes"/>
             <p className="error__p">4</p>
         </div>

@@ -1,9 +1,9 @@
 import React from 'react';
 import { useState, useEffect  } from 'react';
 import { Link } from 'react-router-dom';
-import Cookies from 'js-cookie';
 import RegisterForm from '../components/forms/RegisterForm';
 import ThemeTogglerComponent from '../components/elements/ThemeTogglerComponent'
+import LoadingAnimComponent from '../components/elements/LoadingAnimComponent'
 
 import bird from './img/bird-bumerang.png'
 import pig from './img/king-pig-wo-eyes.png'
@@ -11,7 +11,7 @@ import eyes from './img/eyes.png'
 import './css/Register.css'
 
 const RegisterPage: React.FC = () => {
-
+  const [loading, setLoading] = useState<boolean>(false);
   useEffect(() => {
     const themeToggle = document.getElementById('themeToggle') as HTMLInputElement;
     const eyes = document.getElementById('eyes') as HTMLImageElement;
@@ -115,7 +115,7 @@ const RegisterPage: React.FC = () => {
             <img src={bird} draggable="false" alt="123" className="register__img-light"/>
             <img src={pig} draggable="false" alt="123" className="register__img-dark"/>
             <img src={eyes} draggable="false" alt="123" id="eyes"/>
-            <RegisterForm />
+            <RegisterForm setLoading={setLoading}/>
         </div>
         <div className="add">
             <div className="add__form">
@@ -130,6 +130,18 @@ const RegisterPage: React.FC = () => {
     </main>
     <footer>
     </footer>
+
+    
+    {loading && (
+      <LoadingAnimComponent
+            isOpen={loading}
+            handleClose={() => {
+                setLoading(false);
+            }}
+        />
+    )}
+    
+    {loading && <div className="overlay" />}
     </div>
   );
 };

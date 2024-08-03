@@ -1,15 +1,17 @@
 import React from 'react';
-import { useEffect  } from 'react';
+import { useEffect, useState  } from 'react';
 import LoginForm from '../components/forms/LoginForm';
 import { Link} from 'react-router-dom';
 import ThemeTogglerComponent from '../components/elements/ThemeTogglerComponent'
+import LoadingAnimComponent from '../components/elements/LoadingAnimComponent'
+
 import bird from './img/bird-bumerang.png'
 import pig from './img/king-pig-wo-eyes.png'
 import eyes_png from './img/eyes.png'
 import './css/Login.css'
 
 const LoginPage: React.FC = () => {
-
+  const [loading, setLoading] = useState<boolean>(false);
   useEffect(() => {
     const themeToggle = document.getElementById('themeToggle') as HTMLInputElement;
     const eyes = document.getElementById('eyes') as HTMLImageElement;
@@ -108,7 +110,7 @@ const LoginPage: React.FC = () => {
         <img src={bird} draggable="false" alt="bird" className="login__img-light"/>
             <img src={pig} draggable="false" alt="pig" className="login__img-dark"/>
             <img src={eyes_png} draggable="false" alt="eyes" id="eyes"/>
-            <LoginForm />
+            <LoginForm setLoading={setLoading}/>
         </div>
         <div className="add">
             <div className="add__form">
@@ -123,6 +125,16 @@ const LoginPage: React.FC = () => {
     </main>
     <footer>
     </footer>
+    {loading && (
+      <LoadingAnimComponent
+            isOpen={loading}
+            handleClose={() => {
+                setLoading(false);
+            }}
+        />
+    )}
+    
+    {loading && <div className="overlay" />}
   </div>
   );
 };

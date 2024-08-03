@@ -3,6 +3,7 @@ import { useState, useEffect,   } from 'react';
 import ForgotForm from '../components/forms/ForgotForm';
 import ForgotMessageForm from '../components/forms/ForgotMessageForm';
 import ThemeTogglerComponent from '../components/elements/ThemeTogglerComponent'
+import LoadingAnimComponent from '../components/elements/LoadingAnimComponent'
 
 import bird from './img/bird-bumerang.png'
 import pig from './img/king-pig-wo-eyes.png'
@@ -13,7 +14,7 @@ import './css/Forgot.css'
 const ForgotPage: React.FC = () => {
 
   const [isSend, setIsSend] = useState<boolean>(false);
-
+  const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
     const themeToggle = document.getElementById('themeToggle') as HTMLInputElement;
@@ -92,12 +93,23 @@ const ForgotPage: React.FC = () => {
             <img src={bird} draggable="false" alt="123" className="forgot__img-light"/>
             <img src={pig} draggable="false" alt="123" className="forgot__img-dark"/>
             <img src={eyes} draggable="false" alt="123" id="eyes"/>
-            {isSend? <ForgotMessageForm/> : <ForgotForm setIsSend={setIsSend}/>}
+            {isSend? <ForgotMessageForm/> : <ForgotForm setIsSend={setIsSend} 
+            setLoading={setLoading}/>}
         </div>
        
     </main>
     <footer>
     </footer>
+    {loading && (
+      <LoadingAnimComponent
+            isOpen={loading}
+            handleClose={() => {
+                setLoading(false);
+            }}
+        />
+    )}
+    
+    {loading && <div className="overlay" />}
   </div>
   );
 };

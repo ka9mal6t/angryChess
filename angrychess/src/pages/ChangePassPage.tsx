@@ -2,6 +2,7 @@ import React from 'react';
 import { useState, useEffect  } from 'react';
 import ChangePassForm from '../components/forms/ChangePassForm';
 import ThemeTogglerComponent from '../components/elements/ThemeTogglerComponent'
+import LoadingAnimComponent from '../components/elements/LoadingAnimComponent'
 import { useParams, useNavigate} from 'react-router-dom';
 import { checkRecoverToken } from '../api/auth';
 
@@ -13,8 +14,10 @@ import './css/ChangePass.css'
 
 const ChangePassPage: React.FC = () => {
   const { token } = useParams<{ token: string }>();
-  const [loading, setLoading] = useState(true);
+  const [preLoading, setPreLoading] = useState(true);
+  const [loading, setLoading] = useState<boolean>(false);
   const [exists, setExists] = useState(false);
+  
   
   const navigate = useNavigate();
 
@@ -30,7 +33,7 @@ const ChangePassPage: React.FC = () => {
       } catch (error) {
         setExists(false);
       } finally {
-        setLoading(false);
+        setPreLoading(false);
       }
     };
 
@@ -39,7 +42,7 @@ const ChangePassPage: React.FC = () => {
 
 
   useEffect(() => {
-    if (!loading && exists) {
+    if (!preLoading && exists) {
       const themeToggle = document.getElementById('themeToggle') as HTMLInputElement;
       const eyes = document.getElementById('eyes') as HTMLImageElement;
       
@@ -80,10 +83,21 @@ const ChangePassPage: React.FC = () => {
         document.removeEventListener('mousemove', handleMouseMove);
       };
     }
-  }, [loading, exists]);
+  }, [preLoading, exists]);
 
-  if (loading) {
-    return <div>Loading...</div>;
+  if (preLoading) {
+    return <div>
+      {preLoading && (
+      <LoadingAnimComponent
+            isOpen={preLoading}
+            handleClose={() => {
+                setPreLoading(false);
+            }}
+        />
+    )}
+    
+    {preLoading && <div className="overlay" />}
+    </div>;
   }
 
   if (!exists) {
@@ -121,11 +135,21 @@ const ChangePassPage: React.FC = () => {
             <img src={pig} draggable="false" alt="123" className="forgot__img-dark"/>
             <img src={eyes_png} draggable="false" alt="123" id="eyes"/>
 
-            <ChangePassForm token={token}/>
+            <ChangePassForm token={token} setLoading={setLoading}/>
         </div>
     </main>
     <footer>
     </footer>
+    {loading && (
+      <LoadingAnimComponent
+            isOpen={loading}
+            handleClose={() => {
+                setLoading(false);
+            }}
+        />
+    )}
+    
+    {loading && <div className="overlay" />}
   </div>
   );
 };
