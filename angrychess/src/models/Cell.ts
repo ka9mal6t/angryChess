@@ -113,8 +113,10 @@ export class Cell{
                     : this.board.getCell(0, target.y).figure;
                 if(secondFigure)
                 {
+                    
                     this.board.cells[secondTarget.y][secondTarget.x].figure = secondFigure;
                     this.board.cells[target.y][target.x - this.x > 0 ? 7 : 0].figure = null;
+                    secondFigure.cell = this.board.cells[secondTarget.y][secondTarget.x];
                 }
 
             }

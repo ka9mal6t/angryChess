@@ -102,7 +102,12 @@ export class King extends BaseFigure{
     }
 
     canMoveWithOutCheck(target: Cell): boolean {
-        return this.canMove(target);
+        if(!super.canMove(target))
+            return false;
+        if(this.cell && Math.abs(target.y - this.cell.y) < 2
+            && Math.abs(target.x - this.cell.x) < 2)
+            return true;
+        return false;
     }
     
     toJSON() {
