@@ -27,6 +27,14 @@ export class Board {
         }
     }
 
+    public clearLastMoveHighlight(){
+        for (let i = 0; i < 8; i++) {
+            for (let j = 0; j < 8; j++) {
+                this.cells[i][j].lastMoveHighlight = false;
+            }
+        }
+    }
+
     getBoardState() {
         return {
           cells: this.cells.map(row => row.map(cell => cell.toJSON())),
@@ -39,6 +47,7 @@ export class Board {
         this.cells = state.cells.map((row: any) => 
           row.map((cell: any) => {
             const newCell = new Cell(this, cell.x, cell.y, cell.color, null);
+            newCell.lastMoveHighlight = cell.lastMoveHighlight;
             newCell.figure = cell.figure ? Figure.fromJSON(cell.figure, newCell) : null;
             return newCell;
           })

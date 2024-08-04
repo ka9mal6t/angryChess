@@ -7,7 +7,7 @@ interface ModalProps {
   handleSelectFigure: (figureName: FigureNames) => void;
 }
 
-const ChooseFigureComponent: FC<ModalProps> = ({ isOpen, handleClose, handleSelectFigure }) => {
+const ChooseFigureComponent: FC<ModalProps> = ({ isOpen, handleClose, handleSelectFigure, }) => {
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden'; // блокируем прокрутку

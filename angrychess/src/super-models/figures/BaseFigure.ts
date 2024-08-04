@@ -6,12 +6,16 @@ import logo from '../../assets/black-king.png'
 export enum FigureNames {
     FIGURE = "Figure",
     KING = "King",
-    KNIGHT = "Knight",
     PAWN = "Pawn",
     PAWNCLONE = "PawnClone",
+    KNIGHT = "Knight",
+    TIME_KNIGHT="TimeKnight",
     QUEEN = "Queen",
+    TIME_QUEEN="TimeQueen",
     ROOK = "Rook",
+    TIME_ROOK="TimeRook",
     BISHOP = "Bishop",
+    TIME_BISHOP="TimeBishop",
 }
 
 export class BaseFigure {

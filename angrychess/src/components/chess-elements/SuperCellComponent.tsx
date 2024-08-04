@@ -6,10 +6,11 @@ interface CellProps {
     cell: Cell;
     selected: boolean;
     click: (cell: Cell) => void;
+    doubleClick: (cell: Cell) => void;
     onDropFigure: (fromCell: Cell, toCell: Cell) => void;
 }
 
-const SuperCellComponent: FC<CellProps> = ({ cell, selected, click, onDropFigure }) => {
+const SuperCellComponent: FC<CellProps> = ({ cell, selected, click, onDropFigure, doubleClick }) => {
     const [{ isOver, canDrop }, drop] = useDrop(() => ({
         accept: 'figure',
         drop: (item: { cell: Cell }) => {
@@ -28,11 +29,13 @@ const SuperCellComponent: FC<CellProps> = ({ cell, selected, click, onDropFigure
                 'cell',
                 cell.color,
                 selected ? 'selected' : null,
+                cell.lastMoveHighlight ? 'lastMoveHighlight': null,
                 cell.isKingUnderCheck() ? 'isKingUnderCheck' : null,
                 isOver && canDrop ? 'highlighted' : null, // Добавляем класс для выделения ячейки
             ].join(' ')}
             onClick={() => click(cell)}
-            style={{background: cell.available && cell.figure ? 'green' : ''}}
+            onDoubleClick={() => doubleClick(cell)}
+            style={{background: cell.available && cell.figure ? '#be3b24' : '', aspectRatio: 1 / 1}}
         >
             {cell.available && !cell.figure && <div className={'available'} />}
             {

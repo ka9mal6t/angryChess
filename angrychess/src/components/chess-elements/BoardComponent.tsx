@@ -31,6 +31,19 @@ const BoardComponent: FC<BoardProps> = ({ board, setBoard, currentPlayer, swapPl
         if (lastCell) {
             lastCell.pawnUp(lastCell, figureName);
             setShowChooseModal(false);
+
+            const enemyColor: Colors = swapPlayer();
+
+            if (board.staleMate(enemyColor) && resultModal && !modalShown) {
+                setMessageModal(`Draw`);
+                setModalShown(true);
+            }
+            if (board.checkMate(enemyColor) && resultModal && !modalShown) {
+                setModalShown(true);
+                setMessageModal(`${enemyColor === Colors.WHITE ? Colors.BLACK.toUpperCase() : Colors.WHITE.toUpperCase()} won`);
+            }
+
+            setSelectedCell(null);
         }
     };
 
@@ -66,19 +79,20 @@ const BoardComponent: FC<BoardProps> = ({ board, setBoard, currentPlayer, swapPl
             if (fromCell.checkPawnUp(toCell)) {
                 setShowChooseModal(true);
             }
+            else{
+                const enemyColor: Colors = swapPlayer();
 
-            const enemyColor: Colors = swapPlayer();
-
-            if (board.staleMate(enemyColor) && resultModal && !modalShown) {
-                setMessageModal(`Draw`);
-                setModalShown(true);
+                if (board.staleMate(enemyColor) && resultModal && !modalShown) {
+                    setMessageModal(`Draw`);
+                    setModalShown(true);
+                }
+                if (board.checkMate(enemyColor) && resultModal && !modalShown) {
+                    setModalShown(true);
+                    setMessageModal(`${enemyColor === Colors.WHITE ? Colors.BLACK.toUpperCase() : Colors.WHITE.toUpperCase()} won`);
+                }
+    
+                setSelectedCell(null);
             }
-            if (board.checkMate(enemyColor) && resultModal && !modalShown) {
-                setModalShown(true);
-                setMessageModal(`${enemyColor === Colors.WHITE ? Colors.BLACK.toUpperCase() : Colors.WHITE.toUpperCase()} won`);
-            }
-
-            setSelectedCell(null);
         }
         highlightCells();
     }

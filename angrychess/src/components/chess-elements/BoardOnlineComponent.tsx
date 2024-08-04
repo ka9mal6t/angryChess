@@ -51,7 +51,6 @@ const BoardOnlineComponent: FC<BoardProps> = ({matchId, swapSides, spectator, bo
          
             if (board.checkMate(enemyColor)) {
                 sendWin();
-                setWin(true);
             }
             setSelectedCell(null);
         }

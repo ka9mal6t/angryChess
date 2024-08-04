@@ -4,6 +4,14 @@ import {Colors} from "../Colors";
 import {Cell} from "../Cell";
 import blackLogo from "../../assets/black-pawn.png";
 import whiteLogo from "../../assets/white-pawn.png";
+// import superBlackBishopLogo from "../../assets/super-black-bishop.png";
+// import superBlackKnightLogo from "../../assets/super-black-knight.png";
+// import superBlackQueenLogo from "../../assets/super-black-queen.png";
+// import superBlackRookLogo from "../../assets/super-black-rook.png";
+import superWhiteBishopLogo from "../../assets/super-white-bishop.png";
+import superWhiteKnightLogo from "../../assets/super-white-knight.png";
+import superWhiteQueenLogo from "../../assets/super-white-queen.png";
+import superWhiteRookLogo from "../../assets/super-white-rook.png";
 import {Queen} from "./Queen";
 import {Bishop} from "./Bishop";
 import {Knight} from "./Knight";
@@ -96,13 +104,39 @@ export class Pawn extends BaseFigure{
         if (target.figure)
         {
             if(figure === FigureNames.ROOK)
-                target.setFigure(new Rook(target.figure.color, target))
+                target.setFigure(new Rook(target.figure.color, target));
             if(figure === FigureNames.QUEEN)
-                target.setFigure(new Queen(target.figure.color, target))
+                target.setFigure(new Queen(target.figure.color, target));
             if(figure === FigureNames.KNIGHT)
-                target.setFigure(new Knight(target.figure.color, target))
+                target.setFigure(new Knight(target.figure.color, target));
             if(figure === FigureNames.BISHOP)
-                target.setFigure(new Bishop(target.figure.color, target))
+                target.setFigure(new Bishop(target.figure.color, target));
+
+            if(figure === FigureNames.TIME_ROOK && target.figure.color === Colors.WHITE){
+                const rook = new Rook(target.figure.color, target)
+                rook.logo = superWhiteRookLogo;
+                rook.name = FigureNames.TIME_ROOK;
+                target.setFigure(rook);
+            }
+            if(figure === FigureNames.TIME_QUEEN && target.figure.color === Colors.WHITE){
+                const queen = new Queen(target.figure.color, target)
+                queen.logo = superWhiteQueenLogo;
+                queen.name = FigureNames.TIME_QUEEN;
+                target.setFigure(queen);
+            }
+            if(figure === FigureNames.TIME_KNIGHT && target.figure.color === Colors.WHITE){
+                const knight = new Knight(target.figure.color, target)
+                knight.logo = superWhiteKnightLogo;
+                knight.name = FigureNames.TIME_KNIGHT;
+                target.setFigure(knight);
+            }
+            if(figure === FigureNames.TIME_BISHOP && target.figure.color === Colors.WHITE){
+                const bishop = new Bishop(target.figure.color, target)
+                bishop.logo = superWhiteBishopLogo;
+                bishop.name = FigureNames.TIME_BISHOP;
+                target.setFigure(bishop);
+            }
+
         }
     }
     
@@ -115,8 +149,6 @@ export class Pawn extends BaseFigure{
         }
     }
 
-
-    
 
     toJSON() {
         return {

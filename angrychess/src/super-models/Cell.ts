@@ -2,6 +2,10 @@ import {Colors} from "./Colors";
 import {Figure} from "./figures/Figure";
 import {FigureNames, BaseFigure} from './figures/BaseFigure'
 import {Board} from "./Board";
+import { Rook } from "./figures/Rook";
+import { Knight } from "./figures/Knight";
+import { Queen } from "./figures/Queen";
+import { Bishop } from "./figures/Bishop";
 
 export class Cell{
     readonly x: number;
@@ -9,6 +13,7 @@ export class Cell{
     readonly color: Colors;
     figure: BaseFigure | null;
     board: Board;
+    lastMoveHighlight: boolean = false;
     available: boolean; // move?
     id: number; // for react keys
 
@@ -26,12 +31,14 @@ export class Cell{
           x: this.x,
           y: this.y,
           color: this.color,
+          lastMoveHighlight: this.lastMoveHighlight,
           figure: this.figure ? this.figure.toJSON() : null
         };
       }
 
       static fromJSON(json: any): Cell {
         const cell = new Cell(json.board, json.x, json.y, json.color, null);
+        cell.lastMoveHighlight = json.lastMoveHighlight;
         cell.figure = json.figure ? json.figure.fromJSON(json.figure, cell) : null;
         return cell;
       }
@@ -102,6 +109,9 @@ export class Cell{
     }
     moveFigure(target: Cell){
         if(this.figure && this.figure?.canMove(target)) {
+
+            // KING
+
             if (this.figure.name === FigureNames.KING
                 && Math.abs(target.x - this.x) === 2){
                 const secondTarget = this.board.getCell(this.x + (target.x - this.x)/2, target.y);
@@ -112,9 +122,12 @@ export class Cell{
                 {
                     this.board.cells[secondTarget.y][secondTarget.x].figure = secondFigure;
                     this.board.cells[target.y][target.x - this.x > 0 ? 7 : 0].figure = null;
+                    secondFigure.cell = this.board.cells[secondTarget.y][secondTarget.x];
                 }
 
             }
+
+            // PAWNCLONE
             if(target.figure?.cell && target.figure?.name === FigureNames.PAWNCLONE){
                 let pawnCell: Cell | null = null;
                 
@@ -132,9 +145,26 @@ export class Cell{
                 }
                 
             }
-            
 
-            this.figure.moveFigure(target);
+            // BLACK PAWN FIGHT
+            if(target.figure?.name !== FigureNames.PAWN
+                && target.figure?.name !== FigureNames.PAWNCLONE
+                && target.figure?.color === Colors.WHITE){
+                    this.figure.moveFigure(target);
+                    this.figure.cell = null;
+                    if(target.figure?.name === FigureNames.ROOK || target.figure?.name === FigureNames.TIME_ROOK)
+                        this.figure=new Rook(Colors.BLACK, this);
+                    else if(target.figure?.name === FigureNames.KNIGHT || target.figure?.name === FigureNames.TIME_KNIGHT)
+                        this.figure=new Knight(Colors.BLACK, this);
+                    else if(target.figure?.name === FigureNames.QUEEN || target.figure?.name === FigureNames.TIME_QUEEN)
+                        this.figure=new Queen(Colors.BLACK, this);
+                    else if(target.figure?.name === FigureNames.BISHOP || target.figure?.name === FigureNames.TIME_BISHOP)
+                        this.figure=new Bishop(Colors.BLACK, this);
+
+            }
+            else{
+                this.figure.moveFigure(target);
+            }          
 
             if(target.figure){
                 this.addLostFigure(target.figure);
