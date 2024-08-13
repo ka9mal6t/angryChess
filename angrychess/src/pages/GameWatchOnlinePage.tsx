@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams} from 'react-router-dom';
 import useSpectatorWebSocket from '../hooks/useSpectatorWebSocket';
+import { useAuth } from './../context/AuthContext';
 
 import BoardOnlineComponent from "../components/chess-elements/BoardOnlineComponent";
 import HeaderComponent from "../components/elements/HeaderComponent";
@@ -12,7 +13,7 @@ import { Board } from "../models/Board";
 import { Player } from "../models/Player";
 import { Colors } from "../models/Colors";
 import LostFigures from "../components/chess-elements/LostFigures";
-import {gameResult, gameOnlineDetails, getInfo, getInfoAboutUser} from '../api/auth'
+import {gameResult, gameOnlineDetails, getInfoAboutUser} from '../api/auth'
 
 import './css/Game.css';
 import Cookies from 'js-cookie';
@@ -47,14 +48,13 @@ const GameWatchOnlinePage: React.FC = () => {
   const[draw, setDraw] = useState<boolean>(false);
   const[loose, setLoose] = useState<boolean>(false);
  
-
+  const { user } = useAuth();
 
   const checkColor = async () => {
-    if (token) {
+    if (token && user) {
       try {
         Cookies.remove('OnOneDevice');
-        const {id} = await getInfo(token);
-        setMyUserId(id);
+        setMyUserId(user.id);
 
         const match = await gameResult(token, matchIdNumber);
         if (match.end)

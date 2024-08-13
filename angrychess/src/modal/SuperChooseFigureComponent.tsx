@@ -32,6 +32,7 @@ const SuperChooseFigureComponent: FC<ModalProps> = ({ isOpen, superPawn, handleC
             <button onClick={() => handleFigureSelection(FigureNames.TIME_KNIGHT)}>Knight</button>
             <button onClick={() => handleFigureSelection(FigureNames.TIME_BISHOP)}>Bishop</button>
             <button onClick={() => handleFigureSelection(FigureNames.TIME_QUEEN)}>Queen</button>
+            <button style={{backgroundColor: '#ff2211'}} onClick={() => handleClose()}>Close</button>
       </div>
       :
       <div className="modal-content">

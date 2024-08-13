@@ -147,7 +147,8 @@ export class Cell{
             }
 
             // BLACK PAWN FIGHT
-            if(target.figure?.name !== FigureNames.PAWN
+            if(this.figure?.name === FigureNames.PAWN
+                && target.figure?.name !== FigureNames.PAWN
                 && target.figure?.name !== FigureNames.PAWNCLONE
                 && target.figure?.color === Colors.WHITE){
                     this.figure.moveFigure(target);

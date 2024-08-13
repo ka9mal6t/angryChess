@@ -5,13 +5,13 @@ import HeaderComponent from "../components/elements/HeaderComponent";
 import FooterComponent from "../components/elements/FooterComponent";
 import ThemeTogglerComponent from '../components/elements/ThemeTogglerComponent'
 import {updateRating} from '../functional/raiting'
+import { useAuth } from './../context/AuthContext';
 
 import { Board } from "../models/Board";
 import { Player } from "../models/Player";
 import { Colors } from "../models/Colors";
 import LostFigures from "../components/chess-elements/LostFigures";
-import {getInfo, gameDetails, gameResult, getInfoAboutUser, InfoMatchResponse} from '../api/auth'
-
+import {gameDetails, gameResult, getInfoAboutUser, InfoMatchResponse} from '../api/auth'
 import './css/Game.css';
 import Cookies from 'js-cookie';
 
@@ -46,14 +46,14 @@ const GameWatchPage: React.FC = () => {
   const [enemyUsername, setEnemyUsername] = useState<string | null>(null);
   const [enemyRating, setEnemyRating] = useState<number | null>(null);
 
+  const { user } = useAuth();
 
   const checkColor = async () => {
-    if (token) {
+    if (token && user) {
       try {
         Cookies.remove('OnOneDevice');
         if (matchIdNumber){
-          const {id} = await getInfo(token);
-          setMyUserId(id);
+          setMyUserId(user.id);
 
           const match = await gameResult(token, matchIdNumber);
           if (!match.end)

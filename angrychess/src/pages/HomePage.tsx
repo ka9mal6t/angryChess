@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate} from 'react-router-dom';
-import { getInfo, startSearchGame, stopSearchGame, checkStatusGame} from '../api/auth';
+import { startSearchGame, stopSearchGame, checkStatusGame} from '../api/auth';
 import {updateRating} from '../functional/raiting'
 import LoadingComponent from '../components/elements/LoadingComponent'
 import HeaderComponent from "../components/elements/HeaderComponent";
 import FooterComponent from "../components/elements/FooterComponent";
 import ThemeTogglerComponent from '../components/elements/ThemeTogglerComponent'
+import { useAuth } from './../context/AuthContext';
 
 import Cookies from 'js-cookie';
 
@@ -30,6 +31,8 @@ const HomePage: React.FC = () => {
 
   const [searchingRating, setSearchingRating] = useState<boolean>(false);
 
+  const { user } = useAuth();
+
   const startSearchRating = async () => {
     if (token) {
       try {
@@ -46,21 +49,14 @@ const HomePage: React.FC = () => {
 
   useEffect(() => {
     let intervalId: NodeJS.Timeout;
-    if (searchingRating) {
+    if (searchingRating && token) {
       intervalId = setInterval(async () => {
         try {
-          if (token) {
             const status = await checkStatusGame(token);
             if (status.match) { 
               clearInterval(intervalId);
               navigate('/playRating'); 
             }
-            
-          }
-          else{
-            navigate('/login');
-          }
-
           } catch (error) {
             console.error('Failed to check game status', error);
         }
@@ -69,7 +65,7 @@ const HomePage: React.FC = () => {
 
     // Очистка интервала при размонтировании компонента или когда остановлен поиск
     return () => clearInterval(intervalId);
-  }, [searchingRating, token, navigate]);
+  }, [searchingRating]);
 
   const stopSearchRating = async () => {
     if (token) {
@@ -121,37 +117,23 @@ const HomePage: React.FC = () => {
 
 
   useEffect(() => {
-    const fetchUsername = async () => {
-      if (token) {
-        try {
-          Cookies.remove('OnOneDevice');
-          const {id, user, totalGamesPlayed, wins, losses, draws, rating} = await getInfo(token);
-          setMyUserId(id);
-          setUsername(user.username);
-          setRating(rating);
-          setMatches(totalGamesPlayed);
-          setWins(wins);
-          setDraws(draws);
-          setLosses(losses);
-          updateRating(setNicnameClass, setRatingClass, rating);
-          
+    console.log('Компонент смонтирован');
+    if (user && token) {
+      Cookies.remove('OnOneDevice');
+      setMyUserId(user.id);
+      setUsername(user.user.username);
+      setRating(user.rating);
+      setMatches(user.totalGamesPlayed);
+      setWins(user.wins);
+      setDraws(user.draws);
+      setLosses(user.losses);
+      updateRating(setNicnameClass, setRatingClass, user.rating);
 
-        } catch (error) {
-          console.error('Failed to fetch username', error);
-          navigate('/login');
-        }
-        try{
-          await checkStatusGame(token);
-          setInMatch(true);
-        }
-        catch (error) {
-          setInMatch(false);
-        }
-
-      }
-    };
-    fetchUsername();
-  }, []);
+      checkStatusGame(token)
+      .then(()=>{setInMatch(true);})
+      .catch(()=>{setInMatch(false);});
+    }
+  },[]);
 
   return (
     <div>

@@ -5,8 +5,9 @@ import ErrorComponent from '../elements/ErrorComponent'
 
 interface IRegisterComponent{
   setLoading: (a: boolean) => void;
+  loading: boolean;
 }
-const RegisterForm: FC<IRegisterComponent> = ({setLoading}) => {
+const RegisterForm: FC<IRegisterComponent> = ({setLoading, loading}) => {
   const [error, setError] = useState<boolean>(false);
   const [errorText, setErrorText] = useState<string>('');
   
@@ -73,7 +74,7 @@ const RegisterForm: FC<IRegisterComponent> = ({setLoading}) => {
           onChange={(e) => setCnfrm_password(e.target.value)} required/>
       </div>
       <div className="register__button">
-          <button type="submit" className="register__cfm-btn">Sing Up</button>
+          <button type="submit" className="register__cfm-btn" disabled={loading}>sSing Up</button>
       </div>
       {error && (
         <ErrorComponent

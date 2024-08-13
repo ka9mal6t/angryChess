@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {useNavigate} from 'react-router-dom';
-import { getInfo } from '../api/auth';
+import { useAuth } from './../context/AuthContext';
 import Cookies from 'js-cookie';
 import {updateRating} from '../functional/raiting'
 import SuperBoardComponent from "../components/chess-elements/SuperBoardComponent";
@@ -31,7 +31,7 @@ const SuperGameOnDevicePage: React.FC = () => {
     const blackPlayer = new Player(Colors.BLACK);
     const [currentPlayer, setCurrentPlayer] = useState<Player | null>(null);
 
-
+    const { user } = useAuth();
 
     useEffect(() => {
         restart();
@@ -53,19 +53,14 @@ const SuperGameOnDevicePage: React.FC = () => {
 
   useEffect(() => {
     const fetchUsername = async () => {
-      if (token) {
+      if (token && user) {
         try {
-          // if (onDevice){
-            // Cookies.remove('OnOneDevice');
-            const {id, user, rating} = await getInfo(token);
-            setMyUserId(id);
-            setUsername(user.username);
-            setRating(rating);
-            updateRating(setNicnameClass, setRatingClass, rating);
-          // }
-          // else{
-          //   navigate('/');
-          // }
+          Cookies.remove('OnOneDevice');
+          setMyUserId(user.id);
+          setUsername(user.user.username);
+          setRating(user.rating);
+          updateRating(setNicnameClass, setRatingClass, user.rating);
+
         } catch (error) {
           console.error('Failed to fetch username', error);
           navigate('/login');

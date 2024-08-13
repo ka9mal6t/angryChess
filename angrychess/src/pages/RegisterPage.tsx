@@ -115,7 +115,7 @@ const RegisterPage: React.FC = () => {
             <img src={bird} draggable="false" alt="123" className="register__img-light"/>
             <img src={pig} draggable="false" alt="123" className="register__img-dark"/>
             <img src={eyes} draggable="false" alt="123" id="eyes"/>
-            <RegisterForm setLoading={setLoading}/>
+            <RegisterForm setLoading={setLoading} loading={loading}/>
         </div>
         <div className="add">
             <div className="add__form">

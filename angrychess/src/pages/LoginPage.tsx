@@ -110,7 +110,7 @@ const LoginPage: React.FC = () => {
         <img src={bird} draggable="false" alt="bird" className="login__img-light"/>
             <img src={pig} draggable="false" alt="pig" className="login__img-dark"/>
             <img src={eyes_png} draggable="false" alt="eyes" id="eyes"/>
-            <LoginForm setLoading={setLoading}/>
+            <LoginForm setLoading={setLoading} loading={loading}/>
         </div>
         <div className="add">
             <div className="add__form">

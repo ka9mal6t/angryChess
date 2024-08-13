@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, Link, useParams} from 'react-router-dom';
 import {updateRating} from '../functional/raiting'
-import { getInfo, getInfoAboutUser, getMatchesUser} from '../api/auth';
+import { getInfoAboutUser, getMatchesUser} from '../api/auth';
+import { useAuth } from './../context/AuthContext';
+
 import HeaderComponent from "../components/elements/HeaderComponent";
 import FooterComponent from "../components/elements/FooterComponent";
 import ThemeTogglerComponent from '../components/elements/ThemeTogglerComponent'
@@ -35,6 +37,8 @@ const StatsPage: React.FC = () => {
   const [ratingClass, setRatingClass] = useState<string>('');
   const [nicnameClass, setNicnameClass] = useState<string>('');
 
+  const { user } = useAuth();
+
   const formatDateTime = (isoString: string) => {
     let dateObj = new Date(isoString);
 
@@ -53,13 +57,11 @@ const StatsPage: React.FC = () => {
 
   useEffect(() => {
     const fetchUsername = async () => {
-      if (token) {
+      if (token && user) {
         try {
           Cookies.remove('OnOneDevice');
-          const {id} = await getInfo(token);
-          setMyUserId(id);
+          setMyUserId(user.id);
           
-
         } catch (error) {
           console.error('Failed to fetch username', error);
           navigate('/login');

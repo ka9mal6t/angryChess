@@ -37,7 +37,7 @@ interface RegisterCredentials {
   password: string;
 }
 
-interface StatisticResponces{
+export interface StatisticResponces{
   id: number;
   user: InfoUserResponses;
   totalGamesPlayed: number;
@@ -47,7 +47,7 @@ interface StatisticResponces{
   rating: number;
 }
 
-interface StatisticUserResponces{
+ interface StatisticUserResponces{
   id: number;
   username: string;
   totalGamesPlayed: number;
