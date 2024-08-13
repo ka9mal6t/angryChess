@@ -117,7 +117,6 @@ const HomePage: React.FC = () => {
 
 
   useEffect(() => {
-    console.log('Компонент смонтирован');
     if (user && token) {
       Cookies.remove('OnOneDevice');
       setMyUserId(user.id);
